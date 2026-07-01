@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 interface NavItem {
   label: string;
+  href: string;
   icon: React.JSX.Element;
 }
 
@@ -47,17 +48,17 @@ interface ActivityItem {
 }
 
 const sidebarItems: NavItem[] = [
-  { label: "Dashboard", icon: <GridIcon /> },
-  { label: "Ponds", icon: <PondIcon /> },
-  { label: "Fish Batches", icon: <LayersIcon /> },
-  { label: "Today's Feedings", icon: <ClockIcon /> },
-  { label: "Feed Inventory", icon: <PackageIcon /> },
-  { label: "Water Records", icon: <DropletIcon /> },
-  { label: "Harvest", icon: <CalendarIcon /> },
-  { label: "Reports", icon: <ChartIcon /> },
-  { label: "Vendor Deliveries", icon: <TruckIcon /> },
-  { label: "AI Assistant", icon: <SparkIcon /> },
-  { label: "Settings", icon: <SettingsIcon /> },
+  { label: "Dashboard", href: "/dashboard", icon: <GridIcon /> },
+  { label: "Ponds", href: "/ponds", icon: <PondIcon /> },
+  { label: "Fish Batches", href: "#", icon: <LayersIcon /> },
+  { label: "Today's Feedings", href: "#", icon: <ClockIcon /> },
+  { label: "Feed Inventory", href: "#", icon: <PackageIcon /> },
+  { label: "Water Records", href: "#", icon: <DropletIcon /> },
+  { label: "Harvest", href: "#", icon: <CalendarIcon /> },
+  { label: "Reports", href: "#", icon: <ChartIcon /> },
+  { label: "Vendor Deliveries", href: "#", icon: <TruckIcon /> },
+  { label: "AI Assistant", href: "#", icon: <SparkIcon /> },
+  { label: "Settings", href: "#", icon: <SettingsIcon /> },
 ];
 
 const kpiCards: KpiCard[] = [
@@ -431,7 +432,7 @@ export default function DashboardApp(): React.JSX.Element {
             return (
               <a
                 key={item.label}
-                href="#"
+                href={item.href}
                 className={`flex h-10 items-center gap-3 rounded-md px-3 text-sm transition-all duration-200 hover:-translate-y-px hover:bg-[var(--color-surface)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 ${
                   active
                     ? "border border-[var(--color-accent-border)] bg-[var(--color-accent-light)] font-medium text-[var(--color-accent)]"
