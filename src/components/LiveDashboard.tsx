@@ -92,8 +92,9 @@ export default function LiveDashboard(): React.JSX.Element {
           </span>
         </div>
 
-        <div className="overflow-hidden rounded-[4px] border border-[#E5E5E5] bg-white">
-          <table className="w-full table-fixed border-collapse">
+        <p className="mb-2 text-center text-[11px] text-[#A3A3A3] md:hidden">← scroll →</p>
+        <div className="overflow-x-auto rounded-[4px] border border-[#E5E5E5] bg-white [-webkit-overflow-scrolling:touch]">
+          <table className="w-full min-w-[720px] table-fixed border-collapse">
             <colgroup>
               <col style={{ width: "10%" }} />
               <col style={{ width: "12%" }} />
