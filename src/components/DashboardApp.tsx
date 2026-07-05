@@ -59,7 +59,7 @@ const sidebarItems: NavItem[] = [
   { label: "Fish Batches", href: "/batches", icon: <LayersIcon /> },
   { label: "Today's Feedings", href: "/feedings", icon: <ClockIcon /> },
   { label: "Feed Inventory", href: "/inventory", icon: <PackageIcon /> },
-  { label: "Water Records", href: "#", icon: <DropletIcon /> },
+  { label: "Water Records", href: "/water-records", icon: <DropletIcon /> },
   { label: "Harvest", href: "#", icon: <CalendarIcon /> },
   { label: "Reports", href: "#", icon: <ChartIcon /> },
   { label: "Vendor Deliveries", href: "#", icon: <TruckIcon /> },

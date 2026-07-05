@@ -118,7 +118,7 @@ const NAV_ITEMS = [
   { label: "Fish Batches", href: "/batches", icon: "batch" },
   { label: "Today's Feedings", href: "/feedings", icon: "feed" },
   { label: "Feed Inventory", href: "/inventory", icon: "inventory" },
-  { label: "Water Records", href: "#", icon: "water" },
+  { label: "Water Records", href: "/water-records", icon: "water" },
   { label: "Harvest", href: "#", icon: "harvest" },
   { label: "Reports", href: "#", icon: "reports" },
   { label: "Vendor Deliveries", href: "#", icon: "delivery" },
