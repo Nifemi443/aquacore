@@ -582,7 +582,7 @@ export default function DashboardApp(): React.JSX.Element {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-surface)] text-[var(--color-text-primary)]">
+    <div className="min-h-screen overflow-x-hidden bg-[var(--color-surface)] text-[var(--color-text-primary)]">
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-[256px] border-r border-[var(--color-border)] bg-white/95 px-4 py-5 backdrop-blur-xl lg:block">
         <div className="flex items-center gap-2 px-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent)] text-sm font-bold text-white">
@@ -616,7 +616,7 @@ export default function DashboardApp(): React.JSX.Element {
         </nav>
       </aside>
 
-      <div className="lg:pl-[256px]">
+      <div className="min-w-0 overflow-x-hidden lg:pl-[256px]">
         <header className="sticky top-0 z-20 border-b border-[var(--color-border)] bg-white/80 backdrop-blur-xl">
           <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-3 lg:hidden">

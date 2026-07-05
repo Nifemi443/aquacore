@@ -45,7 +45,7 @@ export default function LandingHeroVisual(): React.JSX.Element {
   }, []);
 
   return (
-    <div className="relative mx-auto w-full max-w-[920px]">
+    <div className="relative mx-auto w-full max-w-[920px] overflow-hidden px-4 sm:px-6">
       {/* Floating dots */}
       {[
         { top: "8%", left: "6%", delay: "0s" },
@@ -61,7 +61,7 @@ export default function LandingHeroVisual(): React.JSX.Element {
       ))}
 
       {/* Stat pill */}
-      <div className="absolute -left-2 top-12 z-10 hidden rounded-2xl border border-[var(--color-border)] bg-white/90 px-4 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.08)] backdrop-blur-xl sm:block">
+      <div className="absolute left-0 top-12 z-10 hidden rounded-2xl border border-[var(--color-border)] bg-white/90 px-4 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.08)] backdrop-blur-xl sm:block">
         <p className="text-[11px] uppercase tracking-widest text-[var(--color-text-muted)]">{stats[statIndex].label}</p>
         <p className="mt-1 text-2xl font-bold tracking-[-0.04em] text-[var(--color-accent)] [animation:countUp_400ms_ease-out]">
           {stats[statIndex].value}
@@ -69,7 +69,7 @@ export default function LandingHeroVisual(): React.JSX.Element {
       </div>
 
       {/* AI insight pill */}
-      <div className="absolute -right-2 bottom-16 z-10 hidden max-w-[200px] rounded-2xl border border-[var(--color-accent-border)] bg-[var(--color-accent-light)]/90 px-4 py-3 shadow-[0_8px_32px_rgba(13,122,95,0.12)] backdrop-blur-xl md:block">
+      <div className="absolute bottom-16 right-0 z-10 hidden max-w-[200px] rounded-2xl border border-[var(--color-accent-border)] bg-[var(--color-accent-light)]/90 px-4 py-3 shadow-[0_8px_32px_rgba(13,122,95,0.12)] backdrop-blur-xl md:block">
         <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--color-accent)]">AI Insight</p>
         <p className="mt-1 text-xs leading-5 text-[var(--color-text-primary)]">
           Pond 4 feed ration can be reduced 5% without affecting growth.
@@ -87,7 +87,7 @@ export default function LandingHeroVisual(): React.JSX.Element {
           </span>
         </div>
 
-        <div className="flex gap-1 overflow-x-auto border-b border-[var(--color-border)] px-4 py-2">
+        <div className="flex flex-wrap gap-1 border-b border-[var(--color-border)] px-4 py-2">
           {tabs.map((tab) => (
             <button
               key={tab}
