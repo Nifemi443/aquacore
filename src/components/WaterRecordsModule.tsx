@@ -1,301 +1,112 @@
 "use client";
 
-import { useMemo, useState } from "react";
-
-type WaterStatus = "Healthy" | "Warning" | "Critical";
-
-interface WaterRecord {
-  id: string;
-  date: string;
-  pond: string;
-  temperature: number;
-  ph: number;
-  dissolvedOxygen: number;
-  waterColor: string;
-  weather: string;
-  notes: string;
-  recordedBy: string;
-  status: WaterStatus;
-}
-
-interface PondSummary {
-  pond: string;
-  temperature: number;
-  ph: number;
-  dissolvedOxygen: number;
-  lastTested: string;
-  status: WaterStatus;
-}
-
-const PONDS = ["Pond A", "Pond B", "Pond C", "Pond D", "Pond E", "Pond F"] as const;
-const WATER_COLORS = ["Clear", "Slightly cloudy", "Cloudy", "Greenish", "Brownish"] as const;
-const WEATHER_OPTIONS = ["Clear", "Cloudy", "Rainy", "Overcast", "Hot"] as const;
-
-const NAV_ITEMS = [
-  { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
-  { label: "Ponds", href: "/ponds", icon: "pond" },
-  { label: "Fish Batches", href: "/batches", icon: "batch" },
-  { label: "Today's Feedings", href: "/feedings", icon: "feed" },
-  { label: "Feed Inventory", href: "/inventory", icon: "inventory" },
-  { label: "Water Records", href: "/water-records", icon: "water" },
-  { label: "Harvest", href: "/harvest", icon: "harvest" },
-  { label: "Reports", href: "/reports", icon: "reports" },
-  { label: "Settings", href: "/settings", icon: "settings" },
-] as const;
-
-type NavIconType = (typeof NAV_ITEMS)[number]["icon"];
-
-const INITIAL_RECORDS: WaterRecord[] = [
-  {
-    id: "WR-001",
-    date: "2026-07-05",
-    pond: "Pond A",
-    temperature: 27.4,
-    ph: 7.2,
-    dissolvedOxygen: 6.8,
-    waterColor: "Clear",
-    weather: "Clear",
-    notes: "All parameters within optimal range.",
-    recordedBy: "Ayo",
-    status: "Healthy",
-  },
-  {
-    id: "WR-002",
-    date: "2026-07-05",
-    pond: "Pond B",
-    temperature: 28.1,
-    ph: 6.8,
-    dissolvedOxygen: 5.2,
-    waterColor: "Slightly cloudy",
-    weather: "Cloudy",
-    notes: "Dissolved oxygen slightly low after rain. Monitor afternoon reading.",
-    recordedBy: "Ngozi",
-    status: "Warning",
-  },
-  {
-    id: "WR-003",
-    date: "2026-07-05",
-    pond: "Pond C",
-    temperature: 27.8,
-    ph: 7.0,
-    dissolvedOxygen: 6.5,
-    waterColor: "Clear",
-    weather: "Clear",
-    notes: "Stable conditions.",
-    recordedBy: "Tunde",
-    status: "Healthy",
-  },
-  {
-    id: "WR-004",
-    date: "2026-07-04",
-    pond: "Pond D",
-    temperature: 29.2,
-    ph: 6.4,
-    dissolvedOxygen: 4.1,
-    waterColor: "Greenish",
-    weather: "Hot",
-    notes: "Algae bloom suspected. Partial water exchange recommended.",
-    recordedBy: "Ayo",
-    status: "Critical",
-  },
-  {
-    id: "WR-005",
-    date: "2026-07-04",
-    pond: "Pond E",
-    temperature: 27.1,
-    ph: 7.1,
-    dissolvedOxygen: 6.2,
-    waterColor: "Clear",
-    weather: "Overcast",
-    notes: "Treatment batch — parameters acceptable.",
-    recordedBy: "Ngozi",
-    status: "Healthy",
-  },
-  {
-    id: "WR-006",
-    date: "2026-07-03",
-    pond: "Pond F",
-    temperature: 26.9,
-    ph: 7.3,
-    dissolvedOxygen: 7.0,
-    waterColor: "Clear",
-    weather: "Clear",
-    notes: "Excellent water quality.",
-    recordedBy: "Tunde",
-    status: "Healthy",
-  },
-];
-
-function deriveStatus(temperature: number, ph: number, dissolvedOxygen: number): WaterStatus {
-  if (dissolvedOxygen < 4.5 || ph < 6.5 || ph > 8.5 || temperature > 32) return "Critical";
-  if (dissolvedOxygen < 5.5 || ph < 6.8 || ph > 8.0 || temperature > 30) return "Warning";
-  return "Healthy";
-}
-
-function NavIcon({ type }: { type: NavIconType }): React.JSX.Element {
-  const paths: Record<NavIconType, React.ReactNode> = {
-    dashboard: (
-      <>
-        <rect x="3" y="3" width="7" height="7" rx="1.5" />
-        <rect x="14" y="3" width="7" height="7" rx="1.5" />
-        <rect x="3" y="14" width="7" height="7" rx="1.5" />
-        <rect x="14" y="14" width="7" height="7" rx="1.5" />
-      </>
-    ),
-    pond: (
-      <>
-        <circle cx="12" cy="12" r="9" />
-        <path d="M7 14c2-2 4-2 6 0s4 2 6 0" />
-      </>
-    ),
-    batch: (
-      <>
-        <path d="M12 3l9 5-9 5-9-5 9-5z" />
-        <path d="M3 13l9 5 9-5" />
-      </>
-    ),
-    feed: <path d="M5 12h14M7 8h10M8 16h8" />,
-    inventory: (
-      <>
-        <path d="M21 8l-9-5-9 5 9 5 9-5z" />
-        <path d="M3 8v8l9 5 9-5V8" />
-      </>
-    ),
-    water: <path d="M12 3s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11z" />,
-    harvest: <path d="M4 14c5-8 11-8 16 0M6 14v5h12v-5" />,
-    reports: (
-      <>
-        <path d="M4 19V5" />
-        <path d="M4 19h16" />
-        <path d="M7 15l4-4 3 3 5-7" />
-      </>
-    ),
-    settings: (
-      <>
-        <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-        <path d="M19.4 15a8 8 0 0 0 .1-2l2-1.5-2-3.5-2.4 1a8 8 0 0 0-1.7-1L15 5.5h-4L10.6 8a8 8 0 0 0-1.7 1l-2.4-1-2 3.5 2 1.5a8 8 0 0 0 .1 2l-2.1 1.5 2 3.5 2.4-1a8 8 0 0 0 1.7 1l.4 2.5h4l.4-2.5a8 8 0 0 0 1.7-1l2.4 1 2-3.5L19.4 15z" />
-      </>
-    ),
-  };
-
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      {paths[type]}
-    </svg>
-  );
-}
-
-function StatusBadge({ status }: { status: WaterStatus }): React.JSX.Element {
-  const styles = {
-    Healthy: "bg-[var(--color-accent-light)] text-[var(--color-accent)]",
-    Warning: "bg-[var(--color-warning-light)] text-[var(--color-warning)]",
-    Critical: "bg-[var(--color-danger-light)] text-[var(--color-danger)]",
-  };
-
-  return (
-    <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${styles[status]}`}>
-      {status}
-    </span>
-  );
-}
-
-function formatDate(date: string): string {
-  return new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric" }).format(new Date(date));
-}
-
-function todayISO(): string {
-  return new Date().toISOString().slice(0, 10);
-}
-
-interface RecordFormState {
-  pond: string;
-  temperature: string;
-  ph: string;
-  dissolvedOxygen: string;
-  waterColor: string;
-  weather: string;
-  notes: string;
-}
-
-const EMPTY_FORM: RecordFormState = {
-  pond: PONDS[0],
-  temperature: "",
-  ph: "",
-  dissolvedOxygen: "",
-  waterColor: WATER_COLORS[0],
-  weather: WEATHER_OPTIONS[0],
-  notes: "",
-};
+import { useEffect, useMemo, useState } from "react";
+import { AI_INSIGHTS, ALERTS, CHART_DATA, EMPTY_FORM, INITIAL_RECORDS, KPI_SPARKLINES, POND_LIVE, TIMELINE } from "./water-records/data";
+import { NAV_ITEMS, PONDS, TECHNICIANS, WATER_COLORS, WEATHER_OPTIONS } from "./water-records/types";
+import type { ChartMetric, ChartPeriod, PondLiveStatus, RecordFormState, WaterAlert, WaterRecord } from "./water-records/types";
+import {
+  HealthRing,
+  inputClass,
+  KpiCard,
+  NavIcon,
+  PeriodTabs,
+  StatusBadge,
+  Toast,
+  TrendChart,
+} from "./water-records/ui";
+import { computeHealthScore, deriveStatus, formatDate, formatDateTime, nowTime, todayISO } from "./water-records/utils";
 
 export default function WaterRecordsModule(): React.JSX.Element {
   const [records, setRecords] = useState<WaterRecord[]>(INITIAL_RECORDS);
+  const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [pondFilter, setPondFilter] = useState("All");
-  const [statusFilter, setStatusFilter] = useState<"All" | WaterStatus>("All");
-  const [dateFilter, setDateFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"All" | WaterRecord["status"]>("All");
+  const [technicianFilter, setTechnicianFilter] = useState("All");
+  const [paramFilter, setParamFilter] = useState("All");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [fabOpen, setFabOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<RecordFormState>(EMPTY_FORM);
-  const [historyPond, setHistoryPond] = useState<string | null>(null);
+  const [detailPond, setDetailPond] = useState<PondLiveStatus | null>(null);
   const [viewRecord, setViewRecord] = useState<WaterRecord | null>(null);
+  const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
+  const [chartMetric, setChartMetric] = useState<ChartMetric>("Temperature");
+  const [chartPeriod, setChartPeriod] = useState<ChartPeriod>("Weekly");
+  const [toast, setToast] = useState<string | null>(null);
 
   const today = todayISO();
 
-  const filteredRecords = useMemo(() => {
-    const term = query.toLowerCase();
-    return records.filter((record) => {
-      const matchesQuery =
-        record.pond.toLowerCase().includes(term) || record.date.includes(term) || record.recordedBy.toLowerCase().includes(term);
-      const matchesPond = pondFilter === "All" || record.pond === pondFilter;
-      const matchesStatus = statusFilter === "All" || record.status === statusFilter;
-      const matchesDate = !dateFilter || record.date === dateFilter;
-      return matchesQuery && matchesPond && matchesStatus && matchesDate;
-    });
-  }, [records, query, pondFilter, statusFilter, dateFilter]);
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 600);
+    return () => clearTimeout(t);
+  }, []);
 
   const todayRecords = useMemo(() => records.filter((r) => r.date === today), [records, today]);
 
-  const summary = useMemo(() => {
-    const pondsTestedToday = new Set(todayRecords.map((r) => r.pond)).size;
-    const avgTemp =
-      todayRecords.length > 0
-        ? (todayRecords.reduce((sum, r) => sum + r.temperature, 0) / todayRecords.length).toFixed(1)
-        : "—";
-    const avgPh =
-      todayRecords.length > 0
-        ? (todayRecords.reduce((sum, r) => sum + r.ph, 0) / todayRecords.length).toFixed(1)
-        : "—";
-    const attention = records.filter((r) => r.status !== "Healthy").length;
-    return { pondsTestedToday, avgTemp, avgPh, attention };
-  }, [records, todayRecords]);
+  const kpis = useMemo(() => {
+    const src = todayRecords.length > 0 ? todayRecords : records.slice(0, 6);
+    const avg = (fn: (r: WaterRecord) => number) =>
+      src.length ? (src.reduce((s, r) => s + fn(r), 0) / src.length).toFixed(2) : "—";
+    const healthy = POND_LIVE.filter((p) => p.status === "Healthy").length;
+    const critical = ALERTS.filter((a) => a.severity === "Critical").length;
+    return {
+      temp: avg((r) => r.temperature),
+      ph: avg((r) => r.ph),
+      oxygen: avg((r) => r.dissolvedOxygen),
+      ammonia: avg((r) => r.ammonia),
+      nitrite: avg((r) => r.nitrite),
+      healthy,
+      critical,
+      testsToday: todayRecords.length,
+    };
+  }, [todayRecords, records]);
 
-  const pondSummaries = useMemo((): PondSummary[] => {
-    return PONDS.map((pond) => {
-      const pondRecords = records.filter((r) => r.pond === pond).sort((a, b) => b.date.localeCompare(a.date));
-      const latest = pondRecords[0];
-      if (!latest) {
-        return { pond, temperature: 0, ph: 0, dissolvedOxygen: 0, lastTested: "Not tested", status: "Warning" as WaterStatus };
-      }
-      return {
-        pond,
-        temperature: latest.temperature,
-        ph: latest.ph,
-        dissolvedOxygen: latest.dissolvedOxygen,
-        lastTested: formatDate(latest.date),
-        status: latest.status,
-      };
+  const overallHealth = useMemo(() => {
+    const scores = POND_LIVE.map((p) => p.healthScore);
+    return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+  }, []);
+
+  const filteredRecords = useMemo(() => {
+    const term = query.toLowerCase();
+    return records.filter((r) => {
+      const matchesQuery =
+        r.pond.toLowerCase().includes(term) ||
+        r.date.includes(term) ||
+        r.recordedBy.toLowerCase().includes(term) ||
+        r.notes.toLowerCase().includes(term);
+      const matchesPond = pondFilter === "All" || r.pond === pondFilter;
+      const matchesStatus = statusFilter === "All" || r.status === statusFilter;
+      const matchesTech = technicianFilter === "All" || r.recordedBy === technicianFilter;
+      const matchesFrom = !dateFrom || r.date >= dateFrom;
+      const matchesTo = !dateTo || r.date <= dateTo;
+      const matchesParam =
+        paramFilter === "All" ||
+        (paramFilter === "Ammonia" && r.ammonia > 0.02) ||
+        (paramFilter === "Oxygen" && r.dissolvedOxygen < 5.5) ||
+        (paramFilter === "pH" && (r.ph < 6.8 || r.ph > 8)) ||
+        (paramFilter === "Temperature" && r.temperature > 30);
+      return matchesQuery && matchesPond && matchesStatus && matchesTech && matchesFrom && matchesTo && matchesParam;
     });
-  }, [records]);
+  }, [records, query, pondFilter, statusFilter, technicianFilter, dateFrom, dateTo, paramFilter]);
 
-  const historyRecords = useMemo(() => {
-    if (!historyPond) return [];
-    return records.filter((r) => r.pond === historyPond).sort((a, b) => b.date.localeCompare(a.date));
-  }, [records, historyPond]);
+  const chartPoints = useMemo(() => {
+    const key = `${chartMetric}-${chartPeriod === "Custom" ? "Weekly" : chartPeriod}`;
+    return CHART_DATA[key] ?? CHART_DATA[`${chartMetric}-Weekly`] ?? [];
+  }, [chartMetric, chartPeriod]);
+
+  const showToast = (msg: string): void => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2800);
+  };
 
   const openCreateModal = (): void => {
     setEditingId(null);
-    setForm(EMPTY_FORM);
+    setForm({ ...EMPTY_FORM, testTime: nowTime() });
     setModalOpen(true);
+    setFabOpen(false);
   };
 
   const openEditModal = (record: WaterRecord): void => {
@@ -305,8 +116,16 @@ export default function WaterRecordsModule(): React.JSX.Element {
       temperature: String(record.temperature),
       ph: String(record.ph),
       dissolvedOxygen: String(record.dissolvedOxygen),
+      ammonia: String(record.ammonia),
+      nitrite: String(record.nitrite),
+      nitrate: String(record.nitrate),
+      waterHardness: String(record.waterHardness),
+      salinity: String(record.salinity),
+      waterDepth: String(record.waterDepth),
+      turbidity: String(record.turbidity),
       waterColor: record.waterColor,
       weather: record.weather,
+      testTime: record.time,
       notes: record.notes,
     });
     setModalOpen(true);
@@ -316,16 +135,27 @@ export default function WaterRecordsModule(): React.JSX.Element {
     const temperature = parseFloat(form.temperature);
     const ph = parseFloat(form.ph);
     const dissolvedOxygen = parseFloat(form.dissolvedOxygen);
+    const ammonia = parseFloat(form.ammonia) || 0;
+    const nitrite = parseFloat(form.nitrite) || 0;
     if (Number.isNaN(temperature) || Number.isNaN(ph) || Number.isNaN(dissolvedOxygen)) return;
 
-    const status = deriveStatus(temperature, ph, dissolvedOxygen);
+    const status = deriveStatus(temperature, ph, dissolvedOxygen, ammonia, nitrite);
     const payload: WaterRecord = {
       id: editingId ?? `WR-${Date.now()}`,
       date: today,
+      time: form.testTime || nowTime(),
       pond: form.pond,
       temperature,
       ph,
       dissolvedOxygen,
+      ammonia,
+      nitrite,
+      nitrate: parseFloat(form.nitrate) || 0,
+      waterHardness: parseFloat(form.waterHardness) || 0,
+      salinity: parseFloat(form.salinity) || 0,
+      waterDepth: parseFloat(form.waterDepth) || 0,
+      turbidity: parseFloat(form.turbidity) || 0,
+      waterLevel: 90,
       waterColor: form.waterColor,
       weather: form.weather,
       notes: form.notes,
@@ -334,9 +164,11 @@ export default function WaterRecordsModule(): React.JSX.Element {
     };
 
     if (editingId) {
-      setRecords((current) => current.map((r) => (r.id === editingId ? payload : r)));
+      setRecords((c) => c.map((r) => (r.id === editingId ? payload : r)));
+      showToast("Water test updated successfully.");
     } else {
-      setRecords((current) => [payload, ...current]);
+      setRecords((c) => [payload, ...c]);
+      showToast("Water test recorded successfully.");
     }
     setModalOpen(false);
     setEditingId(null);
@@ -344,420 +176,552 @@ export default function WaterRecordsModule(): React.JSX.Element {
   };
 
   const deleteRecord = (id: string): void => {
-    setRecords((current) => current.filter((r) => r.id !== id));
+    setRecords((c) => c.filter((r) => r.id !== id));
     if (viewRecord?.id === id) setViewRecord(null);
+    showToast("Record deleted.");
   };
+
+  const chartMetrics: ChartMetric[] = ["Temperature", "pH", "Oxygen", "Ammonia", "Nitrite", "Water Level", "Turbidity"];
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[var(--color-surface)] text-[var(--color-text-primary)]">
+      {/* Left nav */}
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-[256px] border-r border-[var(--color-border)] bg-white/95 px-4 py-5 backdrop-blur-xl lg:block">
-        <a href="/dashboard" className="flex items-center gap-2 px-2 transition-opacity duration-200 hover:opacity-80">
+        <a href="/dashboard" className="flex items-center gap-2 px-2 transition-opacity hover:opacity-80">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent)] text-sm font-bold text-white">A</div>
-          <div>
-            <p className="text-sm font-bold tracking-[-0.02em]">AquaCore</p>
-            <p className="text-[11px] text-[var(--color-text-muted)]">Farm OS</p>
-          </div>
+          <div><p className="text-sm font-bold tracking-[-0.02em]">AquaCore</p><p className="text-[11px] text-[var(--color-text-muted)]">Farm OS</p></div>
         </a>
         <nav className="mt-8 space-y-1">
-          {NAV_ITEMS.map((item) => {
-            const active = item.label === "Water Records";
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                className={`flex h-10 items-center gap-3 rounded-md px-3 text-sm transition-all duration-200 hover:bg-[var(--color-surface)] ${
-                  active
-                    ? "border border-[var(--color-accent-border)] bg-[var(--color-accent-light)] font-medium text-[var(--color-accent)]"
-                    : "text-[var(--color-text-secondary)]"
-                }`}
-              >
-                <NavIcon type={item.icon} />
-                <span>{item.label}</span>
-              </a>
-            );
-          })}
+          {NAV_ITEMS.map((item) => (
+            <a key={item.label} href={item.href} className={`flex h-10 items-center gap-3 rounded-md px-3 text-sm transition-all hover:bg-[var(--color-surface)] ${item.label === "Water Records" ? "border border-[var(--color-accent-border)] bg-[var(--color-accent-light)] font-medium text-[var(--color-accent)]" : "text-[var(--color-text-secondary)]"}`}>
+              <NavIcon type={item.icon} /><span>{item.label}</span>
+            </a>
+          ))}
         </nav>
       </aside>
 
-      <div className="min-w-0 overflow-x-hidden lg:pl-[256px]">
+      <div className="min-w-0 lg:pl-[256px]">
         <header className="sticky top-0 z-20 border-b border-[var(--color-border)] bg-white/80 backdrop-blur-xl lg:hidden">
           <div className="flex h-16 items-center justify-between px-4">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent)] text-sm font-bold text-white">A</div>
               <span className="text-sm font-bold">Water Records</span>
             </div>
-            <a href="/dashboard" className="rounded-md border border-[var(--color-border)] px-3 py-2 text-sm font-medium">
-              Dashboard
-            </a>
+            <a href="/dashboard" className="rounded-md border border-[var(--color-border)] px-3 py-2 text-sm font-medium">Dashboard</a>
           </div>
         </header>
 
-        <div className="mx-auto max-w-[1440px] px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-          {/* Header */}
-          <header className="mb-6 rounded-2xl border border-[var(--color-border)] bg-white p-5 sm:p-6">
-            <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+        <div className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+          {/* Notifications strip */}
+          <div className="mb-4 space-y-2">
+            {ALERTS.slice(0, 2).map((alert) => (
+              <AlertBanner key={alert.id} alert={alert} />
+            ))}
+          </div>
+
+          {/* Page header */}
+          <header className="mb-6 rounded-[18px] border border-[var(--color-border)] bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] sm:p-6">
+            <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
               <div>
                 <h1 className="text-[clamp(28px,4vw,44px)] font-bold tracking-[-0.04em]">Water Records</h1>
-                <p className="mt-2 text-base leading-7 text-[var(--color-text-secondary)]">
-                  Record and monitor water quality for every pond.
+                <p className="mt-2 max-w-2xl text-base leading-7 text-[var(--color-text-secondary)]">
+                  Monitor, analyze and maintain optimal water quality across every pond.
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={openCreateModal}
-                  className="min-h-11 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:bg-emerald-900"
-                >
-                  + Record Water Test
-                </button>
-                <button
-                  type="button"
-                  className="min-h-11 rounded-lg border border-[var(--color-border)] bg-white px-4 py-2 text-sm font-medium text-[var(--color-text-secondary)] transition-all duration-200 hover:border-[var(--color-border-strong)]"
-                >
-                  Export Records
-                </button>
+                <button type="button" onClick={openCreateModal} className="min-h-11 rounded-lg bg-[var(--color-accent)] px-4 text-sm font-medium text-white transition-all hover:bg-emerald-900 hover:shadow-[0_4px_12px_rgba(13,122,95,0.3)]">+ Record Water Test</button>
+                <button type="button" onClick={() => showToast("Sensor import queued.")} className="min-h-11 rounded-lg border border-[var(--color-border)] bg-white px-3 text-sm font-medium text-[var(--color-text-secondary)] hover:shadow-sm">Import Sensor Data</button>
+                <a href="/reports" className="min-h-11 rounded-lg border border-[var(--color-border)] bg-white px-3 text-sm font-medium text-[var(--color-text-secondary)] hover:shadow-sm inline-flex items-center">Generate Report</a>
+                <button type="button" onClick={() => showToast("PDF export started.")} className="hidden min-h-11 rounded-lg border border-[var(--color-border)] bg-white px-3 text-sm font-medium text-[var(--color-text-secondary)] hover:shadow-sm sm:inline-flex sm:items-center">Export PDF</button>
+                <button type="button" onClick={() => showToast("Excel export started.")} className="hidden min-h-11 rounded-lg border border-[var(--color-border)] bg-white px-3 text-sm font-medium text-[var(--color-text-secondary)] hover:shadow-sm md:inline-flex md:items-center">Export Excel</button>
               </div>
             </div>
           </header>
 
-          {/* Summary cards */}
-          <section className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { label: "Total Ponds Tested Today", value: String(summary.pondsTestedToday), detail: `of ${PONDS.length} ponds` },
-              { label: "Average Water Temperature", value: summary.avgTemp === "—" ? "—" : `${summary.avgTemp}°C`, detail: "Today's readings" },
-              { label: "Average pH Level", value: summary.avgPh, detail: "Today's readings" },
-              { label: "Ponds Requiring Attention", value: String(summary.attention), detail: "Warning or critical" },
-            ].map((card) => (
-              <div key={card.label} className="rounded-2xl border border-[var(--color-border)] bg-white p-5 transition-all duration-200 hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]">
-                <p className="text-[11px] font-medium uppercase tracking-widest text-[var(--color-text-muted)]">{card.label}</p>
-                <p className="mt-3 text-3xl font-bold tracking-[-0.04em]">{card.value}</p>
-                <p className="mt-1 text-xs text-[var(--color-text-muted)]">{card.detail}</p>
-              </div>
-            ))}
-          </section>
-
-          {/* Search & filters */}
-          <section className="mb-6 rounded-2xl border border-[var(--color-border)] bg-white p-4 sm:p-5">
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              <input
-                type="search"
-                placeholder="Search by pond or date…"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                className="h-11 rounded-lg border border-[var(--color-border)] px-3 text-sm outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent-border)]"
-              />
-              <select
-                value={pondFilter}
-                onChange={(e) => setPondFilter(e.target.value)}
-                className="h-11 rounded-lg border border-[var(--color-border)] bg-white px-3 text-sm outline-none focus:border-[var(--color-accent)]"
-              >
-                <option value="All">All ponds</option>
-                {PONDS.map((pond) => (
-                  <option key={pond} value={pond}>{pond}</option>
-                ))}
-              </select>
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value as "All" | WaterStatus)}
-                className="h-11 rounded-lg border border-[var(--color-border)] bg-white px-3 text-sm outline-none focus:border-[var(--color-accent)]"
-              >
-                <option value="All">All statuses</option>
-                <option value="Healthy">Healthy</option>
-                <option value="Warning">Warning</option>
-                <option value="Critical">Critical</option>
-              </select>
-              <input
-                type="date"
-                value={dateFilter}
-                onChange={(e) => setDateFilter(e.target.value)}
-                className="h-11 rounded-lg border border-[var(--color-border)] px-3 text-sm outline-none focus:border-[var(--color-accent)]"
-              />
-            </div>
-          </section>
-
-          {/* Recent records */}
-          <section className="mb-6 rounded-2xl border border-[var(--color-border)] bg-white">
-            <div className="border-b border-[var(--color-border)] p-5 sm:p-6">
-              <h2 className="text-lg font-bold tracking-[-0.03em]">Recent Water Records</h2>
-            </div>
-
-            {records.length === 0 ? (
-              <div className="flex flex-col items-center px-6 py-16 text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-accent-light)] text-2xl text-[var(--color-accent)]">
-                  <NavIcon type="water" />
+          <div className="grid gap-6 xl:grid-cols-[1fr_300px]">
+            <div className="min-w-0 space-y-6">
+              {/* KPI Dashboard */}
+              {loading ? (
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <div key={i} className="skeleton h-36 rounded-[18px]" />
+                  ))}
                 </div>
-                <p className="mt-6 text-lg font-semibold">No water records yet.</p>
-                <p className="mt-2 max-w-sm text-sm text-[var(--color-text-secondary)]">
-                  Start logging water tests to monitor pond health across your farm.
-                </p>
-                <button
-                  type="button"
-                  onClick={openCreateModal}
-                  className="mt-6 min-h-12 rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-medium text-white"
-                >
-                  Record First Test
-                </button>
-              </div>
-            ) : filteredRecords.length === 0 ? (
-              <div className="px-6 py-12 text-center text-sm text-[var(--color-text-secondary)]">
-                No records match your search or filters.
-              </div>
-            ) : (
-              <>
-                <div className="hidden overflow-x-auto md:block">
-                  <table className="w-full min-w-[900px] border-collapse">
-                    <thead className="bg-[var(--color-surface)]">
-                      <tr className="text-left text-[11px] font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
-                        <th className="px-5 py-3">Date</th>
-                        <th className="px-5 py-3">Pond</th>
-                        <th className="px-5 py-3">Temperature (°C)</th>
-                        <th className="px-5 py-3">pH</th>
-                        <th className="px-5 py-3">Dissolved Oxygen (mg/L)</th>
-                        <th className="px-5 py-3">Water Color</th>
-                        <th className="px-5 py-3">Status</th>
-                        <th className="px-5 py-3">Recorded By</th>
-                        <th className="px-5 py-3">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {filteredRecords.map((record) => (
-                        <tr key={record.id} className="border-t border-[var(--color-border)] transition-colors hover:bg-[var(--color-surface)]">
-                          <td className="px-5 py-4 text-sm">{formatDate(record.date)}</td>
-                          <td className="px-5 py-4 text-sm font-semibold">{record.pond}</td>
-                          <td className="px-5 py-4 text-sm">{record.temperature}</td>
-                          <td className="px-5 py-4 text-sm">{record.ph}</td>
-                          <td className="px-5 py-4 text-sm">{record.dissolvedOxygen}</td>
-                          <td className="px-5 py-4 text-sm text-[var(--color-text-secondary)]">{record.waterColor}</td>
-                          <td className="px-5 py-4"><StatusBadge status={record.status} /></td>
-                          <td className="px-5 py-4 text-sm">{record.recordedBy}</td>
-                          <td className="px-5 py-4">
-                            <div className="flex gap-2">
-                              <button type="button" onClick={() => setViewRecord(record)} className="text-xs font-medium text-[var(--color-accent)] hover:underline">View</button>
-                              <button type="button" onClick={() => openEditModal(record)} className="text-xs font-medium text-[var(--color-text-secondary)] hover:underline">Edit</button>
-                              <button type="button" onClick={() => deleteRecord(record.id)} className="text-xs font-medium text-[var(--color-danger)] hover:underline">Delete</button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+              ) : (
+                <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  <KpiCard label="Avg Water Temperature" value={kpis.temp} unit="°C" trend="2.1%" trendUp={false} sparkline={KPI_SPARKLINES.temperature} updated="2m ago" icon={<NavIcon type="water" />} />
+                  <KpiCard label="Average pH" value={kpis.ph} trend="0.8%" trendUp={false} sparkline={KPI_SPARKLINES.ph} updated="2m ago" icon={<span className="text-sm font-bold">pH</span>} />
+                  <KpiCard label="Avg Dissolved Oxygen" value={kpis.oxygen} unit="mg/L" trend="3.4%" trendUp={true} sparkline={KPI_SPARKLINES.oxygen} updated="2m ago" icon={<span className="text-xs font-bold">O₂</span>} />
+                  <KpiCard label="Average Ammonia" value={kpis.ammonia} unit="ppm" trend="12%" trendUp={false} sparkline={KPI_SPARKLINES.ammonia} updated="5m ago" icon={<span className="text-xs font-bold">NH₃</span>} />
+                  <KpiCard label="Average Nitrite" value={kpis.nitrite} unit="ppm" trend="5.2%" trendUp={false} sparkline={KPI_SPARKLINES.nitrite} updated="5m ago" icon={<span className="text-xs font-bold">NO₂</span>} />
+                  <KpiCard label="Ponds in Healthy Range" value={String(kpis.healthy)} unit={`/ ${POND_LIVE.length}`} trend="Stable" trendUp={true} sparkline={[4, 4, 5, 5, 4, 5, 5]} updated="Live" icon={<NavIcon type="pond" />} />
+                  <KpiCard label="Critical Water Alerts" value={String(kpis.critical)} trend="+1 today" trendUp={false} sparkline={[1, 1, 2, 2, 3, 2, 2]} updated="Live" icon={<span className="text-sm">⚠</span>} />
+                  <KpiCard label="Water Tests Today" value={String(kpis.testsToday)} trend="+2 vs avg" trendUp={true} sparkline={[2, 3, 2, 4, 3, 5, 3]} updated="Today" icon={<NavIcon type="reports" />} />
+                </section>
+              )}
 
-                <div className="grid gap-3 p-4 md:hidden">
-                  {filteredRecords.map((record) => (
-                    <div key={record.id} className="rounded-xl border border-[var(--color-border)] p-4">
-                      <div className="flex items-start justify-between gap-3">
+              {/* AI Health Score */}
+              <section className="rounded-[18px] border border-[var(--color-border)] bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] sm:p-8">
+                <div className="flex flex-col gap-8 lg:flex-row lg:items-center">
+                  <div className="flex flex-col items-center lg:items-start">
+                    <p className="text-[11px] font-medium uppercase tracking-widest text-[var(--color-text-muted)]">Overall Water Health</p>
+                    <div className="mt-4"><HealthRing score={overallHealth} /></div>
+                  </div>
+                  <div className="flex-1">
+                    <h2 className="text-lg font-bold tracking-[-0.03em]">AI Summary</h2>
+                    <ul className="mt-4 space-y-2 text-sm leading-7 text-[var(--color-text-secondary)]">
+                      <li>Water conditions remain stable across most ponds.</li>
+                      <li><strong className="text-[var(--color-text-primary)]">Pond D</strong> has elevated ammonia levels — action required.</li>
+                      <li><strong className="text-[var(--color-text-primary)]">Pond B</strong> pH is slowly declining — monitor daily.</li>
+                      <li className="text-[var(--color-accent)] font-medium">Recommend partial water replacement in Pond D within 24 hours.</li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+
+              {/* Live Water Status */}
+              <section className="rounded-[18px] border border-[var(--color-border)] bg-white p-5 sm:p-6">
+                <h2 className="text-lg font-bold tracking-[-0.03em]">Live Water Status</h2>
+                <p className="mt-1 text-sm text-[var(--color-text-secondary)]">Real-time readings from all ponds. Click for detailed history.</p>
+                <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {POND_LIVE.map((pond) => (
+                    <button key={pond.pond} type="button" onClick={() => setDetailPond(pond)} className="rounded-[18px] border border-[var(--color-border)] p-5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--color-accent-border)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
+                      <div className="flex items-start justify-between gap-2">
                         <div>
-                          <p className="font-semibold">{record.pond}</p>
-                          <p className="mt-1 text-xs text-[var(--color-text-muted)]">{formatDate(record.date)} · {record.recordedBy}</p>
+                          <p className="font-semibold">{pond.pond}</p>
+                          <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">{pond.batch} · {pond.species}</p>
                         </div>
-                        <StatusBadge status={record.status} />
+                        <StatusBadge status={pond.status} pulse={pond.status === "Critical"} />
                       </div>
                       <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs">
-                        <div className="rounded-lg bg-[var(--color-surface)] p-2">
-                          <p className="text-[var(--color-text-muted)]">Temp</p>
-                          <p className="mt-1 font-semibold">{record.temperature}°C</p>
-                        </div>
-                        <div className="rounded-lg bg-[var(--color-surface)] p-2">
-                          <p className="text-[var(--color-text-muted)]">pH</p>
-                          <p className="mt-1 font-semibold">{record.ph}</p>
-                        </div>
-                        <div className="rounded-lg bg-[var(--color-surface)] p-2">
-                          <p className="text-[var(--color-text-muted)]">D.O.</p>
-                          <p className="mt-1 font-semibold">{record.dissolvedOxygen}</p>
-                        </div>
+                        {[
+                          { l: "Temp", v: `${pond.temperature}°C` },
+                          { l: "pH", v: pond.ph },
+                          { l: "O₂", v: pond.dissolvedOxygen },
+                          { l: "NH₃", v: pond.ammonia },
+                          { l: "NO₂", v: pond.nitrite },
+                          { l: "Score", v: pond.healthScore },
+                        ].map((m) => (
+                          <div key={m.l} className="rounded-lg bg-[var(--color-surface)] p-2">
+                            <p className="text-[var(--color-text-muted)]">{m.l}</p>
+                            <p className="mt-0.5 font-semibold">{m.v}</p>
+                          </div>
+                        ))}
                       </div>
-                      <div className="mt-4 flex gap-3">
-                        <button type="button" onClick={() => setViewRecord(record)} className="min-h-11 flex-1 rounded-lg border border-[var(--color-border)] text-sm font-medium">View</button>
-                        <button type="button" onClick={() => openEditModal(record)} className="min-h-11 flex-1 rounded-lg border border-[var(--color-border)] text-sm font-medium">Edit</button>
-                        <button type="button" onClick={() => deleteRecord(record.id)} className="min-h-11 rounded-lg border border-red-200 px-4 text-sm font-medium text-[var(--color-danger)]">Delete</button>
+                      <p className="mt-3 text-[10px] text-[var(--color-text-muted)]">Last tested {pond.lastTested}</p>
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              {/* Alert Center */}
+              <section className="rounded-[18px] border border-[var(--color-border)] bg-white p-5 sm:p-6">
+                <h2 className="text-lg font-bold tracking-[-0.03em]">Alert Center</h2>
+                <div className="mt-4 space-y-3">
+                  {ALERTS.map((alert) => (
+                    <AlertBanner key={alert.id} alert={alert} compact />
+                  ))}
+                </div>
+              </section>
+
+              {/* AI Insights */}
+              <section className="rounded-[18px] border border-[var(--color-accent-border)] bg-gradient-to-br from-[var(--color-accent-light)] to-white p-5 sm:p-6">
+                <h2 className="text-lg font-bold tracking-[-0.03em]">AI Insights</h2>
+                <ul className="mt-4 space-y-3">
+                  {AI_INSIGHTS.map((insight) => (
+                    <li key={insight} className="flex gap-3 text-sm leading-6 text-[var(--color-text-secondary)]">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]" />
+                      {insight}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+
+              {/* Charts */}
+              <section className="rounded-[18px] border border-[var(--color-border)] bg-white p-5 sm:p-6">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <h2 className="text-lg font-bold tracking-[-0.03em]">Trend Analysis</h2>
+                  <PeriodTabs period={chartPeriod} onChange={setChartPeriod} />
+                </div>
+                <div className="mt-4 flex flex-wrap gap-1">
+                  {chartMetrics.map((m) => (
+                    <button key={m} type="button" onClick={() => setChartMetric(m)} className={`min-h-9 rounded-lg px-3 text-xs font-medium transition-all ${chartMetric === m ? "bg-[var(--color-accent)] text-white" : "bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:bg-[var(--color-accent-light)]"}`}>
+                      {m}
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-6"><TrendChart points={chartPoints} metric={chartMetric} /></div>
+              </section>
+
+              {/* Timeline */}
+              <section className="rounded-[18px] border border-[var(--color-border)] bg-white p-5 sm:p-6">
+                <h2 className="text-lg font-bold tracking-[-0.03em]">Historical Timeline</h2>
+                <div className="mt-6 space-y-0">
+                  {TIMELINE.map((event, i) => (
+                    <div key={event.id} className="relative flex gap-4 pb-6 last:pb-0">
+                      {i < TIMELINE.length - 1 && <span className="absolute left-[11px] top-6 h-full w-px bg-[var(--color-border)]" />}
+                      <span className="relative z-10 mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-white text-[10px]">
+                        {event.type === "test" ? "💧" : event.type === "alert" ? "⚠" : event.type === "rain" ? "🌧" : "•"}
+                      </span>
+                      <div>
+                        <p className="text-sm font-semibold">{event.title}</p>
+                        <p className="text-xs text-[var(--color-text-muted)]">{event.pond} · {event.timestamp}</p>
+                        {event.detail && <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{event.detail}</p>}
                       </div>
                     </div>
                   ))}
                 </div>
-              </>
-            )}
-          </section>
+              </section>
 
-          {/* Pond water status */}
-          <section className="rounded-2xl border border-[var(--color-border)] bg-white p-5 sm:p-6">
-            <h2 className="text-lg font-bold tracking-[-0.03em]">Pond Water Status</h2>
-            <p className="mt-1 text-sm text-[var(--color-text-secondary)]">Latest reading for each pond.</p>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {pondSummaries.map((pond) => (
-                <div key={pond.pond} className="rounded-xl border border-[var(--color-border)] p-5 transition-all duration-200 hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]">
-                  <div className="flex items-start justify-between">
-                    <h3 className="font-semibold">{pond.pond}</h3>
-                    <StatusBadge status={pond.status} />
-                  </div>
-                  {pond.lastTested === "Not tested" ? (
-                    <p className="mt-4 text-sm text-[var(--color-text-muted)]">No tests recorded yet.</p>
-                  ) : (
-                    <dl className="mt-4 grid grid-cols-2 gap-3 text-sm">
-                      <div>
-                        <dt className="text-[var(--color-text-muted)]">Temperature</dt>
-                        <dd className="font-semibold">{pond.temperature}°C</dd>
-                      </div>
-                      <div>
-                        <dt className="text-[var(--color-text-muted)]">pH</dt>
-                        <dd className="font-semibold">{pond.ph}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-[var(--color-text-muted)]">Oxygen</dt>
-                        <dd className="font-semibold">{pond.dissolvedOxygen} mg/L</dd>
-                      </div>
-                      <div>
-                        <dt className="text-[var(--color-text-muted)]">Last tested</dt>
-                        <dd className="font-semibold">{pond.lastTested}</dd>
-                      </div>
-                    </dl>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => setHistoryPond(pond.pond)}
-                    className="mt-5 min-h-11 w-full rounded-lg border border-[var(--color-border)] text-sm font-medium text-[var(--color-accent)] transition-all duration-200 hover:border-[var(--color-accent-border)] hover:bg-[var(--color-accent-light)]"
-                  >
-                    View History
-                  </button>
+              {/* Search & Filters */}
+              <section className="rounded-[18px] border border-[var(--color-border)] bg-white p-4 sm:p-5">
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+                  <input type="search" placeholder="Search pond, date, technician…" value={query} onChange={(e) => setQuery(e.target.value)} className={`${inputClass} mt-0 lg:col-span-2`} />
+                  <select value={pondFilter} onChange={(e) => setPondFilter(e.target.value)} className={`${inputClass} mt-0`}>
+                    <option value="All">All ponds</option>
+                    {PONDS.map((p) => <option key={p} value={p}>{p}</option>)}
+                  </select>
+                  <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)} className={`${inputClass} mt-0`}>
+                    <option value="All">All statuses</option>
+                    <option value="Healthy">Healthy</option>
+                    <option value="Observation">Observation</option>
+                    <option value="Critical">Critical</option>
+                  </select>
+                  <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} className={`${inputClass} mt-0`} aria-label="From" />
+                  <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} className={`${inputClass} mt-0`} aria-label="To" />
+                  <select value={paramFilter} onChange={(e) => setParamFilter(e.target.value)} className={`${inputClass} mt-0`}>
+                    <option value="All">All parameters</option>
+                    <option value="Ammonia">Ammonia alerts</option>
+                    <option value="Oxygen">Low oxygen</option>
+                    <option value="pH">pH out of range</option>
+                    <option value="Temperature">High temperature</option>
+                  </select>
+                  <select value={technicianFilter} onChange={(e) => setTechnicianFilter(e.target.value)} className={`${inputClass} mt-0`}>
+                    <option value="All">All technicians</option>
+                    {TECHNICIANS.map((t) => <option key={t} value={t}>{t}</option>)}
+                  </select>
                 </div>
-              ))}
+              </section>
+
+              {/* Reports quick gen */}
+              <section className="rounded-[18px] border border-[var(--color-border)] bg-white p-5 sm:p-6">
+                <h2 className="text-lg font-bold tracking-[-0.03em]">Reports</h2>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {["Daily Water Report", "Weekly Report", "Monthly Report", "Pond History", "Water Quality Summary", "Parameter Analysis"].map((r) => (
+                    <button key={r} type="button" onClick={() => showToast(`${r} generating…`)} className="min-h-10 rounded-lg border border-[var(--color-border)] bg-white px-3 text-xs font-medium transition-all hover:border-[var(--color-accent-border)] hover:bg-[var(--color-accent-light)] hover:text-[var(--color-accent)]">
+                      {r}
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-3 flex gap-2">
+                  {["PDF", "Excel", "CSV"].map((fmt) => (
+                    <button key={fmt} type="button" onClick={() => showToast(`Exporting ${fmt}…`)} className="min-h-9 rounded-md bg-[var(--color-surface)] px-3 text-xs font-medium text-[var(--color-text-secondary)]">{fmt}</button>
+                  ))}
+                </div>
+              </section>
+
+              {/* Data table */}
+              <section className="rounded-[18px] border border-[var(--color-border)] bg-white">
+                <div className="border-b border-[var(--color-border)] p-5 sm:p-6">
+                  <h2 className="text-lg font-bold tracking-[-0.03em]">Water Records</h2>
+                </div>
+                {filteredRecords.length === 0 ? (
+                  <p className="px-6 py-12 text-center text-sm text-[var(--color-text-secondary)]">No records match your filters.</p>
+                ) : (
+                  <>
+                    <div className="hidden overflow-x-auto lg:block">
+                      <table className="w-full min-w-[1200px] border-collapse">
+                        <thead className="bg-[var(--color-surface)]">
+                          <tr className="text-left text-[11px] font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
+                            {["Date", "Time", "Pond", "Temp", "pH", "D.O.", "NH₃", "NO₂", "Turbidity", "Level", "Weather", "By", "Status", "Actions"].map((h) => (
+                              <th key={h} className="px-4 py-3">{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {filteredRecords.map((r) => (
+                            <tr key={r.id} className="border-t border-[var(--color-border)] transition-colors hover:bg-[var(--color-surface)]">
+                              <td className="px-4 py-3 text-sm">{formatDate(r.date)}</td>
+                              <td className="px-4 py-3 text-sm">{r.time}</td>
+                              <td className="px-4 py-3 text-sm font-semibold">{r.pond}</td>
+                              <td className="px-4 py-3 text-sm">{r.temperature}</td>
+                              <td className="px-4 py-3 text-sm">{r.ph}</td>
+                              <td className="px-4 py-3 text-sm">{r.dissolvedOxygen}</td>
+                              <td className="px-4 py-3 text-sm">{r.ammonia}</td>
+                              <td className="px-4 py-3 text-sm">{r.nitrite}</td>
+                              <td className="px-4 py-3 text-sm">{r.turbidity}</td>
+                              <td className="px-4 py-3 text-sm">{r.waterLevel}%</td>
+                              <td className="px-4 py-3 text-sm">{r.weather}</td>
+                              <td className="px-4 py-3 text-sm">{r.recordedBy}</td>
+                              <td className="px-4 py-3"><StatusBadge status={r.status} pulse={r.status === "Critical"} /></td>
+                              <td className="px-4 py-3">
+                                <div className="flex gap-2">
+                                  <button type="button" onClick={() => setViewRecord(r)} className="text-xs font-medium text-[var(--color-accent)] hover:underline">View</button>
+                                  <button type="button" onClick={() => openEditModal(r)} className="text-xs font-medium hover:underline">Edit</button>
+                                  <button type="button" onClick={() => deleteRecord(r.id)} className="text-xs font-medium text-[var(--color-danger)] hover:underline">Delete</button>
+                                  <button type="button" onClick={() => showToast("Record exported.")} className="text-xs font-medium hover:underline">Export</button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="grid gap-3 p-4 lg:hidden">
+                      {filteredRecords.map((r) => {
+                        const exp = expandedMobile === r.id;
+                        return (
+                          <div key={r.id} className="overflow-hidden rounded-[18px] border border-[var(--color-border)]">
+                            <button type="button" onClick={() => setExpandedMobile(exp ? null : r.id)} className="flex w-full items-center justify-between p-4 text-left">
+                              <div>
+                                <p className="font-semibold">{r.pond}</p>
+                                <p className="mt-1 text-xs text-[var(--color-text-muted)]">{formatDateTime(r.date, r.time)}</p>
+                              </div>
+                              <StatusBadge status={r.status} />
+                            </button>
+                            {exp && (
+                              <div className="border-t border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+                                <dl className="grid grid-cols-3 gap-2 text-xs">
+                                  <div><dt className="text-[var(--color-text-muted)]">Temp</dt><dd className="font-semibold">{r.temperature}°C</dd></div>
+                                  <div><dt className="text-[var(--color-text-muted)]">pH</dt><dd className="font-semibold">{r.ph}</dd></div>
+                                  <div><dt className="text-[var(--color-text-muted)]">O₂</dt><dd className="font-semibold">{r.dissolvedOxygen}</dd></div>
+                                </dl>
+                                <div className="mt-4 flex flex-col gap-2">
+                                  <button type="button" onClick={() => setViewRecord(r)} className="min-h-12 w-full rounded-lg bg-[var(--color-accent)] text-sm font-medium text-white">View History</button>
+                                  <div className="flex gap-2">
+                                    <button type="button" onClick={() => openEditModal(r)} className="min-h-11 flex-1 rounded-lg border border-[var(--color-border)] bg-white text-sm font-medium">Edit</button>
+                                    <button type="button" onClick={() => deleteRecord(r.id)} className="min-h-11 rounded-lg border border-red-200 px-4 text-sm font-medium text-[var(--color-danger)]">Delete</button>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
+              </section>
             </div>
-          </section>
+
+            {/* Right sidebar */}
+            <aside className="hidden space-y-4 xl:block">
+              <SidebarCard title="Today's Water Tests">
+                {todayRecords.length === 0 ? <p className="text-sm text-[var(--color-text-secondary)]">No tests yet today.</p> : todayRecords.map((r) => (
+                  <div key={r.id} className="flex items-center justify-between border-b border-[var(--color-border)] py-2 last:border-0">
+                    <span className="text-sm font-medium">{r.pond}</span>
+                    <StatusBadge status={r.status} />
+                  </div>
+                ))}
+              </SidebarCard>
+              <SidebarCard title="Upcoming Tests">
+                {POND_LIVE.filter((p) => !todayRecords.some((r) => r.pond === p.pond)).map((p) => (
+                  <p key={p.pond} className="py-1 text-sm text-[var(--color-text-secondary)]">{p.pond} — overdue</p>
+                ))}
+              </SidebarCard>
+              <SidebarCard title="Critical Alerts">
+                {ALERTS.filter((a) => a.severity === "Critical").map((a) => (
+                  <p key={a.id} className="py-1 text-sm text-[var(--color-danger)]">{a.pond}: {a.title}</p>
+                ))}
+              </SidebarCard>
+              <SidebarCard title="Weather">
+                <p className="text-2xl font-bold">32°C</p>
+                <p className="text-sm text-[var(--color-text-secondary)]">Partly cloudy · Humidity 78%</p>
+                <p className="mt-2 text-xs text-[var(--color-warning)]">Heavy rainfall expected this evening.</p>
+              </SidebarCard>
+              <SidebarCard title="Recent Activity">
+                {TIMELINE.slice(0, 4).map((e) => (
+                  <p key={e.id} className="border-b border-[var(--color-border)] py-2 text-xs text-[var(--color-text-secondary)] last:border-0">{e.title} — {e.pond}</p>
+                ))}
+              </SidebarCard>
+              <SidebarCard title="Water Health Score">
+                <div className="flex justify-center py-2"><HealthRing score={overallHealth} /></div>
+              </SidebarCard>
+            </aside>
+          </div>
         </div>
       </div>
 
-      {/* Mobile quick actions */}
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-2 lg:hidden">
-        <button
-          type="button"
-          onClick={openCreateModal}
-          className="min-h-12 rounded-full bg-[var(--color-accent)] px-5 py-3 text-sm font-medium text-white shadow-[0_4px_16px_rgba(13,122,95,0.3)]"
-        >
-          + Record Water Test
+      {/* FAB */}
+      <div className="fixed bottom-6 right-6 z-40 xl:hidden">
+        {fabOpen && (
+          <div className="mb-3 flex flex-col items-end gap-2">
+            {[
+              { label: "Record Test", action: openCreateModal },
+              { label: "Water Change", action: () => showToast("Water change logged.") },
+              { label: "Add Note", action: () => showToast("Note added.") },
+              { label: "Generate Report", action: () => showToast("Report generating…") },
+            ].map((item) => (
+              <button key={item.label} type="button" onClick={item.action} className="min-h-11 rounded-full border border-[var(--color-border)] bg-white px-4 text-sm font-medium shadow-lg">{item.label}</button>
+            ))}
+          </div>
+        )}
+        <button type="button" onClick={() => setFabOpen(!fabOpen)} className="flex min-h-14 min-w-14 items-center justify-center rounded-full bg-[var(--color-accent)] text-2xl font-light text-white shadow-[0_4px_20px_rgba(13,122,95,0.4)]">
+          {fabOpen ? "×" : "+"}
         </button>
       </div>
 
-      {/* Record modal */}
-      {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-4 sm:items-center">
-          <div className="w-full max-w-lg rounded-2xl border border-[var(--color-border)] bg-white p-6 shadow-[0_24px_64px_rgba(0,0,0,0.15)]">
-            <h2 className="text-xl font-bold tracking-[-0.03em]">{editingId ? "Edit Water Test" : "Record Water Test"}</h2>
-            <div className="mt-6 space-y-4">
-              <label className="block text-sm">
-                <span className="font-medium">Select Pond</span>
-                <select
-                  value={form.pond}
-                  onChange={(e) => setForm((f) => ({ ...f, pond: e.target.value }))}
-                  className="mt-1.5 h-11 w-full rounded-lg border border-[var(--color-border)] px-3 outline-none focus:border-[var(--color-accent)]"
-                >
-                  {PONDS.map((pond) => (
-                    <option key={pond} value={pond}>{pond}</option>
-                  ))}
-                </select>
-              </label>
-              <div className="grid gap-4 sm:grid-cols-3">
-                <label className="block text-sm">
-                  <span className="font-medium">Temperature (°C)</span>
-                  <input type="number" step="0.1" value={form.temperature} onChange={(e) => setForm((f) => ({ ...f, temperature: e.target.value }))} className="mt-1.5 h-11 w-full rounded-lg border border-[var(--color-border)] px-3 outline-none focus:border-[var(--color-accent)]" />
-                </label>
-                <label className="block text-sm">
-                  <span className="font-medium">pH</span>
-                  <input type="number" step="0.1" value={form.ph} onChange={(e) => setForm((f) => ({ ...f, ph: e.target.value }))} className="mt-1.5 h-11 w-full rounded-lg border border-[var(--color-border)] px-3 outline-none focus:border-[var(--color-accent)]" />
-                </label>
-                <label className="block text-sm">
-                  <span className="font-medium">Dissolved Oxygen</span>
-                  <input type="number" step="0.1" value={form.dissolvedOxygen} onChange={(e) => setForm((f) => ({ ...f, dissolvedOxygen: e.target.value }))} className="mt-1.5 h-11 w-full rounded-lg border border-[var(--color-border)] px-3 outline-none focus:border-[var(--color-accent)]" />
-                </label>
-              </div>
-              <label className="block text-sm">
-                <span className="font-medium">Water Color</span>
-                <select value={form.waterColor} onChange={(e) => setForm((f) => ({ ...f, waterColor: e.target.value }))} className="mt-1.5 h-11 w-full rounded-lg border border-[var(--color-border)] px-3 outline-none focus:border-[var(--color-accent)]">
-                  {WATER_COLORS.map((color) => (
-                    <option key={color} value={color}>{color}</option>
-                  ))}
-                </select>
-              </label>
-              <label className="block text-sm">
-                <span className="font-medium">Weather</span>
-                <select value={form.weather} onChange={(e) => setForm((f) => ({ ...f, weather: e.target.value }))} className="mt-1.5 h-11 w-full rounded-lg border border-[var(--color-border)] px-3 outline-none focus:border-[var(--color-accent)]">
-                  {WEATHER_OPTIONS.map((weather) => (
-                    <option key={weather} value={weather}>{weather}</option>
-                  ))}
-                </select>
-              </label>
-              <label className="block text-sm">
-                <span className="font-medium">Notes</span>
-                <textarea value={form.notes} onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))} rows={3} className="mt-1.5 w-full rounded-lg border border-[var(--color-border)] px-3 py-2 outline-none focus:border-[var(--color-accent)]" />
-              </label>
-            </div>
-            <div className="mt-6 flex gap-3">
-              <button type="button" onClick={() => setModalOpen(false)} className="min-h-11 flex-1 rounded-lg border border-[var(--color-border)] text-sm font-medium">Cancel</button>
-              <button type="button" onClick={saveRecord} className="min-h-11 flex-1 rounded-lg bg-[var(--color-accent)] text-sm font-medium text-white">Save Record</button>
-            </div>
-          </div>
-        </div>
-      )}
+      {toast && <Toast message={toast} />}
 
-      {/* History drawer */}
-      {historyPond && (
-        <div className="fixed inset-0 z-50 flex justify-end bg-black/40">
-          <div className="h-full w-full max-w-md overflow-y-auto bg-white shadow-[-8px_0_32px_rgba(0,0,0,0.1)]">
-            <div className="sticky top-0 flex items-center justify-between border-b border-[var(--color-border)] bg-white px-5 py-4">
-              <div>
-                <h2 className="text-lg font-bold">{historyPond}</h2>
-                <p className="text-sm text-[var(--color-text-secondary)]">Water history</p>
-              </div>
-              <button type="button" onClick={() => setHistoryPond(null)} className="rounded-lg border border-[var(--color-border)] px-3 py-1.5 text-sm">Close</button>
-            </div>
-            <div className="divide-y divide-[var(--color-border)]">
-              {historyRecords.length === 0 ? (
-                <p className="px-5 py-12 text-center text-sm text-[var(--color-text-secondary)]">No history for this pond.</p>
-              ) : (
-                historyRecords.map((record) => (
-                  <div key={record.id} className="px-5 py-5">
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-semibold">{formatDate(record.date)}</p>
-                      <StatusBadge status={record.status} />
-                    </div>
-                    <dl className="mt-3 grid grid-cols-3 gap-2 text-xs">
-                      <div><dt className="text-[var(--color-text-muted)]">Temp</dt><dd className="font-semibold">{record.temperature}°C</dd></div>
-                      <div><dt className="text-[var(--color-text-muted)]">pH</dt><dd className="font-semibold">{record.ph}</dd></div>
-                      <div><dt className="text-[var(--color-text-muted)]">Oxygen</dt><dd className="font-semibold">{record.dissolvedOxygen}</dd></div>
-                    </dl>
-                    {record.notes && <p className="mt-3 text-sm text-[var(--color-text-secondary)]">{record.notes}</p>}
-                    <p className="mt-2 text-xs text-[var(--color-text-muted)]">Recorded by {record.recordedBy}</p>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* View detail modal */}
-      {viewRecord && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="w-full max-w-md rounded-2xl border border-[var(--color-border)] bg-white p-6">
-            <div className="flex items-start justify-between">
-              <div>
-                <h2 className="text-xl font-bold">{viewRecord.pond}</h2>
-                <p className="text-sm text-[var(--color-text-secondary)]">{formatDate(viewRecord.date)}</p>
-              </div>
-              <StatusBadge status={viewRecord.status} />
-            </div>
-            <dl className="mt-6 space-y-3 text-sm">
-              <div className="flex justify-between"><dt className="text-[var(--color-text-muted)]">Temperature</dt><dd className="font-semibold">{viewRecord.temperature}°C</dd></div>
-              <div className="flex justify-between"><dt className="text-[var(--color-text-muted)]">pH</dt><dd className="font-semibold">{viewRecord.ph}</dd></div>
-              <div className="flex justify-between"><dt className="text-[var(--color-text-muted)]">Dissolved Oxygen</dt><dd className="font-semibold">{viewRecord.dissolvedOxygen} mg/L</dd></div>
-              <div className="flex justify-between"><dt className="text-[var(--color-text-muted)]">Water Color</dt><dd className="font-semibold">{viewRecord.waterColor}</dd></div>
-              <div className="flex justify-between"><dt className="text-[var(--color-text-muted)]">Weather</dt><dd className="font-semibold">{viewRecord.weather}</dd></div>
-              <div className="flex justify-between"><dt className="text-[var(--color-text-muted)]">Recorded By</dt><dd className="font-semibold">{viewRecord.recordedBy}</dd></div>
-            </dl>
-            {viewRecord.notes && <p className="mt-4 rounded-lg bg-[var(--color-surface)] p-3 text-sm text-[var(--color-text-secondary)]">{viewRecord.notes}</p>}
-            <button type="button" onClick={() => setViewRecord(null)} className="mt-6 min-h-11 w-full rounded-lg border border-[var(--color-border)] text-sm font-medium">Close</button>
-          </div>
-        </div>
-      )}
+      {/* Record modal — continued in part 2 via same file */}
+      {modalOpen && <RecordModal form={form} setForm={setForm} editing={!!editingId} onClose={() => setModalOpen(false)} onSave={saveRecord} />}
+      {detailPond && <PondPanel pond={detailPond} records={records.filter((r) => r.pond === detailPond.pond)} onClose={() => setDetailPond(null)} />}
+      {viewRecord && <ViewModal record={viewRecord} onClose={() => setViewRecord(null)} />}
     </main>
+  );
+}
+
+function AlertBanner({ alert, compact }: { alert: WaterAlert; compact?: boolean }): React.JSX.Element {
+  const isCritical = alert.severity === "Critical";
+  return (
+    <div className={`flex flex-col gap-1 rounded-[18px] border px-4 py-3 sm:flex-row sm:items-center sm:justify-between ${isCritical ? "border-red-200 bg-red-50/80" : "border-amber-200 bg-amber-50/80"}`}>
+      <div>
+        <p className={`text-sm font-semibold ${isCritical ? "text-[var(--color-danger)]" : "text-[var(--color-warning)]"}`}>
+          {isCritical ? "Critical" : "Warning"} · {alert.title}
+        </p>
+        <p className="text-sm text-[var(--color-text-secondary)]">{alert.pond} — {alert.action}</p>
+      </div>
+      {!compact && <span className="text-xs text-[var(--color-text-muted)]">{alert.timestamp}</span>}
+    </div>
+  );
+}
+
+function SidebarCard({ title, children }: { title: string; children: React.ReactNode }): React.JSX.Element {
+  return (
+    <div className="rounded-[18px] border border-[var(--color-border)] bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <h3 className="text-sm font-bold tracking-[-0.02em]">{title}</h3>
+      <div className="mt-3">{children}</div>
+    </div>
+  );
+}
+
+function RecordModal({ form, setForm, editing, onClose, onSave }: {
+  form: RecordFormState; setForm: React.Dispatch<React.SetStateAction<RecordFormState>>; editing: boolean; onClose: () => void; onSave: () => void;
+}): React.JSX.Element {
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-4 sm:items-center">
+      <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-[18px] border border-[var(--color-border)] bg-white p-6 shadow-[0_24px_64px_rgba(0,0,0,0.15)]">
+        <h2 className="text-xl font-bold tracking-[-0.03em]">{editing ? "Edit Water Test" : "Record Water Test"}</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <label className="block text-sm sm:col-span-2"><span className="font-medium">Select Pond</span>
+            <select value={form.pond} onChange={(e) => setForm((f) => ({ ...f, pond: e.target.value }))} className={inputClass}>
+              {PONDS.map((p) => <option key={p} value={p}>{p}</option>)}
+            </select>
+          </label>
+          {[
+            { k: "temperature" as const, l: "Temperature (°C)" },
+            { k: "ph" as const, l: "pH" },
+            { k: "dissolvedOxygen" as const, l: "Dissolved Oxygen (mg/L)" },
+            { k: "ammonia" as const, l: "Ammonia (ppm)" },
+            { k: "nitrite" as const, l: "Nitrite (ppm)" },
+            { k: "nitrate" as const, l: "Nitrate (ppm)" },
+            { k: "waterHardness" as const, l: "Water Hardness" },
+            { k: "salinity" as const, l: "Salinity" },
+            { k: "waterDepth" as const, l: "Water Depth (m)" },
+            { k: "turbidity" as const, l: "Turbidity (NTU)" },
+          ].map(({ k, l }) => (
+            <label key={k} className="block text-sm"><span className="font-medium">{l}</span>
+              <input type="number" step="0.01" value={form[k]} onChange={(e) => setForm((f) => ({ ...f, [k]: e.target.value }))} className={inputClass} />
+            </label>
+          ))}
+          <label className="block text-sm"><span className="font-medium">Water Color</span>
+            <select value={form.waterColor} onChange={(e) => setForm((f) => ({ ...f, waterColor: e.target.value }))} className={inputClass}>
+              {WATER_COLORS.map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </label>
+          <label className="block text-sm"><span className="font-medium">Weather Condition</span>
+            <select value={form.weather} onChange={(e) => setForm((f) => ({ ...f, weather: e.target.value }))} className={inputClass}>
+              {WEATHER_OPTIONS.map((w) => <option key={w} value={w}>{w}</option>)}
+            </select>
+          </label>
+          <label className="block text-sm"><span className="font-medium">Test Time</span>
+            <input type="time" value={form.testTime} onChange={(e) => setForm((f) => ({ ...f, testTime: e.target.value }))} className={inputClass} />
+          </label>
+          <label className="block text-sm sm:col-span-2"><span className="font-medium">Photo Upload</span>
+            <input type="file" accept="image/*" className="mt-1.5 block w-full text-sm text-[var(--color-text-secondary)]" />
+          </label>
+          <label className="block text-sm sm:col-span-2"><span className="font-medium">Notes</span>
+            <textarea value={form.notes} onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))} rows={3} className="mt-1.5 w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm outline-none focus:border-[var(--color-accent)]" />
+          </label>
+        </div>
+        <div className="mt-6 flex gap-3">
+          <button type="button" onClick={onClose} className="min-h-11 flex-1 rounded-lg border border-[var(--color-border)] text-sm font-medium">Cancel</button>
+          <button type="button" onClick={onSave} className="min-h-11 flex-1 rounded-lg bg-[var(--color-accent)] text-sm font-medium text-white">Save Record</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PondPanel({ pond, records, onClose }: { pond: PondLiveStatus; records: WaterRecord[]; onClose: () => void }): React.JSX.Element {
+  return (
+    <div className="fixed inset-0 z-50 flex justify-end bg-black/40">
+      <div className="h-full w-full max-w-lg overflow-y-auto bg-white shadow-[-8px_0_32px_rgba(0,0,0,0.1)]">
+        <div className="sticky top-0 flex items-center justify-between border-b border-[var(--color-border)] bg-white px-5 py-4">
+          <div><h2 className="text-lg font-bold">{pond.pond}</h2><p className="text-sm text-[var(--color-text-secondary)]">Pond details & history</p></div>
+          <button type="button" onClick={onClose} className="rounded-lg border border-[var(--color-border)] px-3 py-1.5 text-sm">Close</button>
+        </div>
+        <div className="flex justify-center border-b border-[var(--color-border)] py-6"><HealthRing score={pond.healthScore} /></div>
+        <div className="divide-y divide-[var(--color-border)] px-5">
+          {[
+            { l: "Current Batch", v: pond.batch },
+            { l: "Species", v: pond.species },
+            { l: "Fish Population", v: pond.population.toLocaleString() },
+            { l: "Average Weight", v: `${pond.avgWeight} kg` },
+            { l: "Water Source", v: pond.waterSource },
+            { l: "Last Water Change", v: formatDate(pond.lastWaterChange) },
+            { l: "Water Volume", v: `${pond.waterVolume} m³` },
+            { l: "Water Depth", v: `${pond.waterDepth} m` },
+          ].map((row) => (
+            <div key={row.l} className="flex justify-between py-3 text-sm"><span className="text-[var(--color-text-muted)]">{row.l}</span><span className="font-semibold">{row.v}</span></div>
+          ))}
+        </div>
+        <div className="border-t border-[var(--color-border)] p-5">
+          <h3 className="text-sm font-bold">Latest Readings</h3>
+          <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
+            <div className="rounded-lg bg-[var(--color-surface)] p-2"><p className="text-[var(--color-text-muted)]">Temp</p><p className="font-semibold">{pond.temperature}°C</p></div>
+            <div className="rounded-lg bg-[var(--color-surface)] p-2"><p className="text-[var(--color-text-muted)]">pH</p><p className="font-semibold">{pond.ph}</p></div>
+            <div className="rounded-lg bg-[var(--color-surface)] p-2"><p className="text-[var(--color-text-muted)]">O₂</p><p className="font-semibold">{pond.dissolvedOxygen}</p></div>
+          </div>
+          <h3 className="mt-6 text-sm font-bold">History</h3>
+          <div className="mt-3 space-y-3">
+            {records.slice(0, 5).map((r) => (
+              <div key={r.id} className="rounded-lg border border-[var(--color-border)] p-3 text-sm">
+                <div className="flex justify-between"><span className="font-medium">{formatDateTime(r.date, r.time)}</span><StatusBadge status={r.status} /></div>
+                <p className="mt-1 text-xs text-[var(--color-text-muted)]">{r.temperature}°C · pH {r.ph} · O₂ {r.dissolvedOxygen}</p>
+              </div>
+            ))}
+          </div>
+          <a href="/ponds" className="mt-5 flex min-h-11 items-center justify-center rounded-lg border border-[var(--color-border)] text-sm font-medium text-[var(--color-accent)]">View in Pond Management →</a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ViewModal({ record, onClose }: { record: WaterRecord; onClose: () => void }): React.JSX.Element {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+      <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-[18px] border border-[var(--color-border)] bg-white p-6">
+        <div className="flex items-start justify-between">
+          <div><h2 className="text-xl font-bold">{record.pond}</h2><p className="text-sm text-[var(--color-text-secondary)]">{formatDateTime(record.date, record.time)}</p></div>
+          <StatusBadge status={record.status} pulse={record.status === "Critical"} />
+        </div>
+        <dl className="mt-6 space-y-2 text-sm">
+          {[
+            ["Temperature", `${record.temperature}°C`], ["pH", record.ph], ["Dissolved Oxygen", `${record.dissolvedOxygen} mg/L`],
+            ["Ammonia", `${record.ammonia} ppm`], ["Nitrite", `${record.nitrite} ppm`], ["Nitrate", `${record.nitrate} ppm`],
+            ["Turbidity", `${record.turbidity} NTU`], ["Water Level", `${record.waterLevel}%`], ["Weather", record.weather],
+            ["Recorded By", record.recordedBy], ["Health Score", computeHealthScore(record)],
+          ].map(([l, v]) => (
+            <div key={l} className="flex justify-between border-b border-[var(--color-border)] py-2 last:border-0">
+              <dt className="text-[var(--color-text-muted)]">{l}</dt><dd className="font-semibold">{v}</dd>
+            </div>
+          ))}
+        </dl>
+        {record.notes && <p className="mt-4 rounded-lg bg-[var(--color-surface)] p-3 text-sm">{record.notes}</p>}
+        <button type="button" onClick={onClose} className="mt-6 min-h-11 w-full rounded-lg border border-[var(--color-border)] text-sm font-medium">Close</button>
+      </div>
+    </div>
   );
 }

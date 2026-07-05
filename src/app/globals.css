@@ -260,6 +260,51 @@
   animation: dotDrift 4s ease-in-out infinite;
 }
 
+@keyframes pulseCritical {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(220, 38, 38, 0);
+  }
+}
+
+.badge-pulse-critical {
+  animation: pulseCritical 2s ease-in-out infinite;
+}
+
+@keyframes chartReveal {
+  from {
+    opacity: 0;
+    transform: scaleY(0.95);
+    transform-origin: bottom;
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+.chart-animate {
+  animation: chartReveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toast-enter {
+  animation: toastIn 0.3s ease-out forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
