@@ -60,7 +60,7 @@ const sidebarItems: NavItem[] = [
   { label: "Today's Feedings", href: "/feedings", icon: <ClockIcon /> },
   { label: "Feed Inventory", href: "/inventory", icon: <PackageIcon /> },
   { label: "Water Records", href: "/water-records", icon: <DropletIcon /> },
-  { label: "Harvest", href: "#", icon: <CalendarIcon /> },
+  { label: "Harvest", href: "/harvest", icon: <CalendarIcon /> },
   { label: "Reports", href: "#", icon: <ChartIcon /> },
   { label: "Vendor Deliveries", href: "#", icon: <TruckIcon /> },
   { label: "AI Assistant", href: "#", icon: <SparkIcon /> },

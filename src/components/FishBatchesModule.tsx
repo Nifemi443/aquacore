@@ -183,7 +183,7 @@ const NAV_ITEMS = [
   { label: "Today's Feedings", href: "/feedings", icon: "feed" },
   { label: "Feed Inventory", href: "/inventory", icon: "inventory" },
   { label: "Water Records", href: "/water-records", icon: "water" },
-  { label: "Harvest", href: "#", icon: "harvest" },
+  { label: "Harvest", href: "/harvest", icon: "harvest" },
   { label: "Reports", href: "#", icon: "reports" },
   { label: "Vendor Deliveries", href: "#", icon: "delivery" },
   { label: "AI Assistant", href: "#", icon: "ai" },
