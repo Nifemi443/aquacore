@@ -205,10 +205,10 @@ const appNavItems: AppNavItem[] = [
   { label: "Feed Inventory", href: "/inventory", icon: <MiniIcon type="inventory" /> },
   { label: "Water Records", href: "/water-records", icon: <MiniIcon type="water" /> },
   { label: "Harvest", href: "/harvest", icon: <MiniIcon type="harvest" /> },
-  { label: "Reports", href: "#", icon: <MiniIcon type="reports" /> },
+  { label: "Reports", href: "/reports", icon: <MiniIcon type="reports" /> },
   { label: "Vendor Deliveries", href: "#", icon: <MiniIcon type="delivery" /> },
   { label: "AI Assistant", href: "#", icon: <MiniIcon type="ai" /> },
-  { label: "Settings", href: "#", icon: <MiniIcon type="settings" /> },
+  { label: "Settings", href: "/settings", icon: <MiniIcon type="settings" /> },
 ] as const;
 const quickActions = [
   { label: "Feed Fish", type: "feed" },

@@ -61,10 +61,10 @@ const sidebarItems: NavItem[] = [
   { label: "Feed Inventory", href: "/inventory", icon: <PackageIcon /> },
   { label: "Water Records", href: "/water-records", icon: <DropletIcon /> },
   { label: "Harvest", href: "/harvest", icon: <CalendarIcon /> },
-  { label: "Reports", href: "#", icon: <ChartIcon /> },
+  { label: "Reports", href: "/reports", icon: <ChartIcon /> },
   { label: "Vendor Deliveries", href: "#", icon: <TruckIcon /> },
   { label: "AI Assistant", href: "#", icon: <SparkIcon /> },
-  { label: "Settings", href: "#", icon: <SettingsIcon /> },
+  { label: "Settings", href: "/settings", icon: <SettingsIcon /> },
 ];
 
 const kpiCards: KpiCard[] = [

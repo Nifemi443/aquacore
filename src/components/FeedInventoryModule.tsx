@@ -120,10 +120,10 @@ const NAV_ITEMS = [
   { label: "Feed Inventory", href: "/inventory", icon: "inventory" },
   { label: "Water Records", href: "/water-records", icon: "water" },
   { label: "Harvest", href: "/harvest", icon: "harvest" },
-  { label: "Reports", href: "#", icon: "reports" },
+  { label: "Reports", href: "/reports", icon: "reports" },
   { label: "Vendor Deliveries", href: "#", icon: "delivery" },
   { label: "AI Assistant", href: "#", icon: "ai" },
-  { label: "Settings", href: "#", icon: "settings" },
+  { label: "Settings", href: "/settings", icon: "settings" },
 ] as const;
 
 type NavIconType = (typeof NAV_ITEMS)[number]["icon"];
