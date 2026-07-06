@@ -118,7 +118,6 @@ const NAV_ITEMS = [
   { label: "Fish Batches", href: "/batches", icon: "batch" },
   { label: "Today's Feedings", href: "/feedings", icon: "feed" },
   { label: "Feed Inventory", href: "/inventory", icon: "inventory" },
-  { label: "Water Records", href: "/water-records", icon: "water" },
   { label: "Harvest", href: "/harvest", icon: "harvest" },
   { label: "Reports", href: "/reports", icon: "reports" },
   { label: "Vendor Deliveries", href: "#", icon: "delivery" },
@@ -126,7 +125,7 @@ const NAV_ITEMS = [
   { label: "Settings", href: "/settings", icon: "settings" },
 ] as const;
 
-type NavIconType = (typeof NAV_ITEMS)[number]["icon"];
+type NavIconType = (typeof NAV_ITEMS)[number]["icon"] | "water";
 type IconType = NavIconType | "value" | "clock" | "alert" | "score";
 
 const KPI_CARDS: KpiCard[] = [

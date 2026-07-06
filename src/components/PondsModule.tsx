@@ -203,7 +203,6 @@ const appNavItems: AppNavItem[] = [
   { label: "Fish Batches", href: "/batches", icon: <MiniIcon type="batch" /> },
   { label: "Today's Feedings", href: "/feedings", icon: <MiniIcon type="feed" /> },
   { label: "Feed Inventory", href: "/inventory", icon: <MiniIcon type="inventory" /> },
-  { label: "Water Records", href: "/water-records", icon: <MiniIcon type="water" /> },
   { label: "Harvest", href: "/harvest", icon: <MiniIcon type="harvest" /> },
   { label: "Reports", href: "/reports", icon: <MiniIcon type="reports" /> },
   { label: "Vendor Deliveries", href: "#", icon: <MiniIcon type="delivery" /> },

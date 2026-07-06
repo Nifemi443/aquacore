@@ -193,7 +193,7 @@ export default function WaterRecordsModule(): React.JSX.Element {
         </a>
         <nav className="mt-8 space-y-1">
           {NAV_ITEMS.map((item) => (
-            <a key={item.label} href={item.href} className={`flex h-10 items-center gap-3 rounded-md px-3 text-sm transition-all hover:bg-[var(--color-surface)] ${item.label === "Water Records" ? "border border-[var(--color-accent-border)] bg-[var(--color-accent-light)] font-medium text-[var(--color-accent)]" : "text-[var(--color-text-secondary)]"}`}>
+            <a key={item.label} href={item.href} className={`flex h-10 items-center gap-3 rounded-md px-3 text-sm transition-all hover:bg-[var(--color-surface)] ${item.label === "Dashboard" ? "border border-[var(--color-accent-border)] bg-[var(--color-accent-light)] font-medium text-[var(--color-accent)]" : "text-[var(--color-text-secondary)]"}`}>
               <NavIcon type={item.icon} /><span>{item.label}</span>
             </a>
           ))}

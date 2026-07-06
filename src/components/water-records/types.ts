@@ -101,10 +101,9 @@ export const NAV_ITEMS = [
   { label: "Fish Batches", href: "/batches", icon: "batch" },
   { label: "Today's Feedings", href: "/feedings", icon: "feed" },
   { label: "Feed Inventory", href: "/inventory", icon: "inventory" },
-  { label: "Water Records", href: "/water-records", icon: "water" },
   { label: "Harvest", href: "/harvest", icon: "harvest" },
   { label: "Reports", href: "/reports", icon: "reports" },
   { label: "Settings", href: "/settings", icon: "settings" },
 ] as const;
 
-export type NavIconType = (typeof NAV_ITEMS)[number]["icon"];
+export type NavIconType = (typeof NAV_ITEMS)[number]["icon"] | "water";

@@ -1,5 +1,6 @@
-import WaterRecordsModule from "@/components/WaterRecordsModule";
+import { redirect } from "next/navigation";
 
-export default function WaterRecordsPage(): React.JSX.Element {
-  return <WaterRecordsModule />;
+// Water Records is kept in the codebase but hidden from public navigation.
+export default function WaterRecordsPage(): never {
+  redirect("/dashboard");
 }

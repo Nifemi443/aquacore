@@ -59,7 +59,6 @@ const sidebarItems: NavItem[] = [
   { label: "Fish Batches", href: "/batches", icon: <LayersIcon /> },
   { label: "Today's Feedings", href: "/feedings", icon: <ClockIcon /> },
   { label: "Feed Inventory", href: "/inventory", icon: <PackageIcon /> },
-  { label: "Water Records", href: "/water-records", icon: <DropletIcon /> },
   { label: "Harvest", href: "/harvest", icon: <CalendarIcon /> },
   { label: "Reports", href: "/reports", icon: <ChartIcon /> },
   { label: "Vendor Deliveries", href: "#", icon: <TruckIcon /> },
@@ -142,7 +141,7 @@ const smartInsights = [
 ] as const;
 
 const fabActions = [
-  "New Batch", "New Pond", "Record Feed", "Water Test", "Transfer Batch", "Mortality", "Harvest", "Add Vendor", "Inventory Purchase", "Generate Report",
+  "New Batch", "New Pond", "Record Feed", "Transfer Batch", "Mortality", "Harvest", "Add Vendor", "Inventory Purchase", "Generate Report",
 ] as const;
 
 const exportOptions = ["PDF", "Excel", "CSV", "Weekly Report", "Monthly Report", "Profit Report"] as const;
