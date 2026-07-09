@@ -1,6 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { AppMobileHeader } from "./app/AppMobileHeader";
+import { AppMobileNav } from "./app/AppMobileNav";
+import { AppSidebar } from "./app/AppSidebar";
+import type { AppNavIconType } from "./app/nav-config";
 
 type FeedingStatus = "Completed" | "In Progress" | "Scheduled" | "Missed" | "Delayed";
 type SlotName = "Morning" | "Afternoon" | "Evening" | "Night";
@@ -67,21 +71,7 @@ interface NotificationItem {
   time: string;
 }
 
-const NAV_ITEMS = [
-  { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
-  { label: "Ponds", href: "/ponds", icon: "pond" },
-  { label: "Fish Batches", href: "/batches", icon: "batch" },
-  { label: "Today's Feedings", href: "/feedings", icon: "feed" },
-  { label: "Feed Inventory", href: "/inventory", icon: "inventory" },
-  { label: "Harvest", href: "/harvest", icon: "harvest" },
-  { label: "Reports", href: "/reports", icon: "reports" },
-  { label: "Vendor Deliveries", href: "#", icon: "delivery" },
-  { label: "AI Assistant", href: "#", icon: "ai" },
-  { label: "Settings", href: "/settings", icon: "settings" },
-] as const;
-
-type NavIconType = (typeof NAV_ITEMS)[number]["icon"] | "water";
-type IconType = NavIconType | "clock" | "check" | "cost" | "score" | "timer";
+type IconType = AppNavIconType | "clock" | "check" | "cost" | "score" | "timer";
 
 const KPI_CARDS: KpiCard[] = [
   { label: "Today's Feedings", value: "36", detail: "Scheduled across 6 ponds", trend: "+4", trendTone: "up", spark: "up", icon: "feed" },
@@ -565,51 +555,11 @@ export default function FeedingsModule(): React.JSX.Element {
   const maxDistribution = Math.max(...DISTRIBUTION_DATA[distributionTab].map((item) => item.kg), 1);
 
   return (
-    <main className="min-h-screen bg-[var(--color-surface)] text-[var(--color-text-primary)]">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[256px] border-r border-[var(--color-border)] bg-white/95 px-4 py-5 backdrop-blur-xl lg:block">
-        <a href="/dashboard" className="flex items-center gap-2 px-2 transition-all duration-200 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent)] text-sm font-bold text-white">A</div>
-          <div>
-            <p className="text-sm font-bold tracking-[-0.02em]">AquaCore</p>
-            <p className="text-[11px] text-[var(--color-text-muted)]">Farm OS</p>
-          </div>
-        </a>
-        <nav className="mt-8 space-y-1">
-          {NAV_ITEMS.map((item) => {
-            const active = item.label === "Today's Feedings";
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                className={`flex h-10 items-center gap-3 rounded-md px-3 text-sm transition-all duration-200 hover:-translate-y-px hover:bg-[var(--color-surface)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 ${
-                  active
-                    ? "border border-[var(--color-accent-border)] bg-[var(--color-accent-light)] font-medium text-[var(--color-accent)]"
-                    : "text-[var(--color-text-secondary)]"
-                }`}
-              >
-                <NavIcon type={item.icon} />
-                <span>{item.label}</span>
-              </a>
-            );
-          })}
-        </nav>
-      </aside>
+    <main className="min-h-screen bg-[var(--color-surface)] pb-24 text-[var(--color-text-primary)] lg:pb-0">
+      <AppSidebar activeKey="feedings" />
 
       <div className="lg:pl-[256px]">
-        <header className="sticky top-0 z-20 border-b border-[var(--color-border)] bg-white/80 backdrop-blur-xl lg:hidden">
-          <div className="flex h-16 items-center justify-between px-4 sm:px-6">
-            <a href="/dashboard" className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent)] text-sm font-bold text-white">A</div>
-              <div>
-                <p className="text-sm font-bold tracking-[-0.02em]">AquaCore</p>
-                <p className="text-[11px] text-[var(--color-text-muted)]">Today&apos;s Feedings</p>
-              </div>
-            </a>
-            <a href="/dashboard" className="rounded-md border border-[var(--color-border)] bg-white px-3 py-2 text-sm font-medium transition-all duration-200 hover:bg-[var(--color-surface)]">
-              Dashboard
-            </a>
-          </div>
-        </header>
+        <AppMobileHeader activeKey="feedings" />
 
         <div className="mx-auto max-w-[1440px] px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
           {/* Page header */}
@@ -1330,7 +1280,7 @@ export default function FeedingsModule(): React.JSX.Element {
       </div>
 
       {/* Floating action button — mobile only */}
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2 lg:hidden">
+      <div className="fixed bottom-24 right-6 z-40 flex flex-col items-end gap-2 lg:bottom-6 lg:hidden">
         {fabOpen &&
           FAB_ACTIONS.map((action) => (
             <button
@@ -1355,6 +1305,8 @@ export default function FeedingsModule(): React.JSX.Element {
       </div>
 
       {selectedRecord && <FeedingDrawer record={selectedRecord} onClose={() => setSelectedRecord(null)} />}
+
+      <AppMobileNav activeKey="feedings" />
     </main>
   );
 }

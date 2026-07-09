@@ -1,12 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-
-interface NavItem {
-  label: string;
-  href: string;
-  icon: React.JSX.Element;
-}
+import { AppMobileNav } from "./app/AppMobileNav";
+import { AppSidebar } from "./app/AppSidebar";
 
 interface KpiCard {
   label: string;
@@ -52,19 +48,6 @@ interface ActivityItem {
   text: string;
   time: string;
 }
-
-const sidebarItems: NavItem[] = [
-  { label: "Dashboard", href: "/dashboard", icon: <GridIcon /> },
-  { label: "Ponds", href: "/ponds", icon: <PondIcon /> },
-  { label: "Fish Batches", href: "/batches", icon: <LayersIcon /> },
-  { label: "Today's Feedings", href: "/feedings", icon: <ClockIcon /> },
-  { label: "Feed Inventory", href: "/inventory", icon: <PackageIcon /> },
-  { label: "Harvest", href: "/harvest", icon: <CalendarIcon /> },
-  { label: "Reports", href: "/reports", icon: <ChartIcon /> },
-  { label: "Vendor Deliveries", href: "#", icon: <TruckIcon /> },
-  { label: "AI Assistant", href: "#", icon: <SparkIcon /> },
-  { label: "Settings", href: "/settings", icon: <SettingsIcon /> },
-];
 
 const kpiCards: KpiCard[] = [
   { label: "Total Fish", value: "400", detail: "Across 4 ponds", icon: <PondIcon />, trend: "+2.4%", trendTone: "up", spark: "up", comparison: "vs 391 last week" },
@@ -229,17 +212,6 @@ function IconShell({ children }: { children: React.ReactNode }): React.JSX.Eleme
   );
 }
 
-function GridIcon(): React.JSX.Element {
-  return (
-    <IconShell>
-      <rect x="3" y="3" width="7" height="7" rx="1.5" />
-      <rect x="14" y="3" width="7" height="7" rx="1.5" />
-      <rect x="3" y="14" width="7" height="7" rx="1.5" />
-      <rect x="14" y="14" width="7" height="7" rx="1.5" />
-    </IconShell>
-  );
-}
-
 function PondIcon(): React.JSX.Element {
   return (
     <IconShell>
@@ -304,30 +276,10 @@ function ChartIcon(): React.JSX.Element {
   );
 }
 
-function TruckIcon(): React.JSX.Element {
-  return (
-    <IconShell>
-      <path d="M3 7h11v9H3z" />
-      <path d="M14 10h4l3 3v3h-7z" />
-      <circle cx="7" cy="18" r="2" />
-      <circle cx="17" cy="18" r="2" />
-    </IconShell>
-  );
-}
-
 function SparkIcon(): React.JSX.Element {
   return (
     <IconShell>
       <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z" />
-    </IconShell>
-  );
-}
-
-function SettingsIcon(): React.JSX.Element {
-  return (
-    <IconShell>
-      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-      <path d="M19.4 15a8 8 0 0 0 .1-2l2-1.5-2-3.5-2.4 1a8 8 0 0 0-1.7-1L15 5.5h-4L10.6 8a8 8 0 0 0-1.7 1l-2.4-1-2 3.5 2 1.5a8 8 0 0 0 .1 2l-2.1 1.5 2 3.5 2.4-1a8 8 0 0 0 1.7 1l.4 2.5h4l.4-2.5a8 8 0 0 0 1.7-1l2.4 1 2-3.5L19.4 15z" />
     </IconShell>
   );
 }
@@ -581,39 +533,8 @@ export default function DashboardApp(): React.JSX.Element {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[var(--color-surface)] text-[var(--color-text-primary)]">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[256px] border-r border-[var(--color-border)] bg-white/95 px-4 py-5 backdrop-blur-xl lg:block">
-        <div className="flex items-center gap-2 px-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent)] text-sm font-bold text-white">
-            A
-          </div>
-          <div>
-            <p className="text-sm font-bold tracking-[-0.02em]">AquaCore</p>
-            <p className="text-[11px] text-[var(--color-text-muted)]">Farm OS</p>
-          </div>
-        </div>
-
-        <nav className="mt-8 space-y-1">
-          {sidebarItems.map((item) => {
-            const active = item.label === "Dashboard";
-
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                className={`flex h-10 items-center gap-3 rounded-md px-3 text-sm transition-all duration-200 hover:-translate-y-px hover:bg-[var(--color-surface)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 ${
-                  active
-                    ? "border border-[var(--color-accent-border)] bg-[var(--color-accent-light)] font-medium text-[var(--color-accent)]"
-                    : "text-[var(--color-text-secondary)]"
-                }`}
-              >
-                <span>{item.icon}</span>
-                <span>{item.label}</span>
-              </a>
-            );
-          })}
-        </nav>
-      </aside>
+    <div className="min-h-screen overflow-x-hidden bg-[var(--color-surface)] pb-24 text-[var(--color-text-primary)] lg:pb-0">
+      <AppSidebar activeKey="dashboard" />
 
       <div className="min-w-0 overflow-x-hidden lg:pl-[256px]">
         <header className="sticky top-0 z-20 border-b border-[var(--color-border)] bg-white/80 backdrop-blur-xl">
@@ -1327,7 +1248,7 @@ export default function DashboardApp(): React.JSX.Element {
         </main>
       </div>
 
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2 lg:hidden">
+      <div className="fixed bottom-24 right-6 z-40 flex flex-col items-end gap-2 lg:bottom-6 lg:hidden">
         {fabOpen &&
           fabActions.map((action) => (
             <button
@@ -1350,6 +1271,8 @@ export default function DashboardApp(): React.JSX.Element {
           <span className={`transition-transform duration-200 ${fabOpen ? "rotate-45" : ""}`}>+</span>
         </button>
       </div>
+
+      <AppMobileNav activeKey="dashboard" />
     </div>
   );
 }

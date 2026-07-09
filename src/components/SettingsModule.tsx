@@ -1,6 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { AppMobileHeader } from "./app/AppMobileHeader";
+import { AppMobileNav } from "./app/AppMobileNav";
+import { AppSidebar } from "./app/AppSidebar";
 
 interface ProfileState {
   fullName: string;
@@ -35,19 +38,6 @@ interface PreferencesState {
   timezone: string;
   dateFormat: string;
 }
-
-const NAV_ITEMS = [
-  { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
-  { label: "Ponds", href: "/ponds", icon: "pond" },
-  { label: "Fish Batches", href: "/batches", icon: "batch" },
-  { label: "Today's Feedings", href: "/feedings", icon: "feed" },
-  { label: "Feed Inventory", href: "/inventory", icon: "inventory" },
-  { label: "Harvest", href: "/harvest", icon: "harvest" },
-  { label: "Reports", href: "/reports", icon: "reports" },
-  { label: "Settings", href: "/settings", icon: "settings" },
-] as const;
-
-type NavIconType = (typeof NAV_ITEMS)[number]["icon"] | "water";
 
 const SECTIONS = [
   { id: "profile", title: "Profile Information", keywords: "profile photo name email phone role" },
@@ -93,59 +83,6 @@ const INITIAL_PREFERENCES: PreferencesState = {
   dateFormat: "DD/MM/YYYY",
 };
 
-function NavIcon({ type }: { type: NavIconType }): React.JSX.Element {
-  const paths: Record<NavIconType, React.ReactNode> = {
-    dashboard: (
-      <>
-        <rect x="3" y="3" width="7" height="7" rx="1.5" />
-        <rect x="14" y="3" width="7" height="7" rx="1.5" />
-        <rect x="3" y="14" width="7" height="7" rx="1.5" />
-        <rect x="14" y="14" width="7" height="7" rx="1.5" />
-      </>
-    ),
-    pond: (
-      <>
-        <circle cx="12" cy="12" r="9" />
-        <path d="M7 14c2-2 4-2 6 0s4 2 6 0" />
-      </>
-    ),
-    batch: (
-      <>
-        <path d="M12 3l9 5-9 5-9-5 9-5z" />
-        <path d="M3 13l9 5 9-5" />
-      </>
-    ),
-    feed: <path d="M5 12h14M7 8h10M8 16h8" />,
-    inventory: (
-      <>
-        <path d="M21 8l-9-5-9 5 9 5 9-5z" />
-        <path d="M3 8v8l9 5 9-5V8" />
-      </>
-    ),
-    water: <path d="M12 3s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11z" />,
-    harvest: <path d="M4 14c5-8 11-8 16 0M6 14v5h12v-5" />,
-    reports: (
-      <>
-        <path d="M4 19V5" />
-        <path d="M4 19h16" />
-        <path d="M7 15l4-4 3 3 5-7" />
-      </>
-    ),
-    settings: (
-      <>
-        <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-        <path d="M19.4 15a8 8 0 0 0 .1-2l2-1.5-2-3.5-2.4 1a8 8 0 0 0-1.7-1L15 5.5h-4L10.6 8a8 8 0 0 0-1.7 1l-2.4-1-2 3.5 2 1.5a8 8 0 0 0 .1 2l-2.1 1.5 2 3.5 2.4-1a8 8 0 0 0 1.7 1l.4 2.5h4l.4-2.5a8 8 0 0 0 1.7-1l2.4 1 2-3.5L19.4 15z" />
-      </>
-    ),
-  };
-
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      {paths[type]}
-    </svg>
-  );
-}
-
 function Toggle({
   checked,
   onChange,
@@ -168,15 +105,11 @@ function Toggle({
         role="switch"
         aria-checked={checked}
         onClick={() => onChange(!checked)}
-        className={`relative h-7 w-12 shrink-0 rounded-full transition-colors duration-200 ${
-          checked ? "bg-[var(--color-accent)]" : "bg-neutral-200"
+        className={`flex h-7 w-12 shrink-0 items-center rounded-full p-0.5 transition-colors duration-200 ${
+          checked ? "justify-end bg-[var(--color-accent)]" : "justify-start bg-neutral-200"
         }`}
       >
-        <span
-          className={`absolute top-0.5 h-6 w-6 rounded-full bg-white shadow-sm transition-transform duration-200 ${
-            checked ? "translate-x-5" : "translate-x-0.5"
-          }`}
-        />
+        <span className="h-6 w-6 shrink-0 rounded-full bg-white shadow-sm" />
       </button>
     </div>
   );
@@ -252,46 +185,11 @@ export default function SettingsModule(): React.JSX.Element {
   };
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[var(--color-surface)] text-[var(--color-text-primary)]">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[256px] border-r border-[var(--color-border)] bg-white/95 px-4 py-5 backdrop-blur-xl lg:block">
-        <a href="/dashboard" className="flex items-center gap-2 px-2 transition-opacity duration-200 hover:opacity-80">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent)] text-sm font-bold text-white">A</div>
-          <div>
-            <p className="text-sm font-bold tracking-[-0.02em]">AquaCore</p>
-            <p className="text-[11px] text-[var(--color-text-muted)]">Farm OS</p>
-          </div>
-        </a>
-        <nav className="mt-8 space-y-1">
-          {NAV_ITEMS.map((item) => {
-            const active = item.label === "Settings";
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                className={`flex h-10 items-center gap-3 rounded-md px-3 text-sm transition-all duration-200 hover:bg-[var(--color-surface)] ${
-                  active
-                    ? "border border-[var(--color-accent-border)] bg-[var(--color-accent-light)] font-medium text-[var(--color-accent)]"
-                    : "text-[var(--color-text-secondary)]"
-                }`}
-              >
-                <NavIcon type={item.icon} />
-                <span>{item.label}</span>
-              </a>
-            );
-          })}
-        </nav>
-      </aside>
+    <main className="min-h-screen overflow-x-hidden bg-[var(--color-surface)] pb-24 text-[var(--color-text-primary)] lg:pb-0">
+      <AppSidebar activeKey="settings" />
 
       <div className="min-w-0 overflow-x-hidden lg:pl-[256px]">
-        <header className="sticky top-0 z-20 border-b border-[var(--color-border)] bg-white/80 backdrop-blur-xl lg:hidden">
-          <div className="flex h-16 items-center justify-between px-4">
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent)] text-sm font-bold text-white">A</div>
-              <span className="text-sm font-bold">Settings</span>
-            </div>
-            <a href="/dashboard" className="rounded-md border border-[var(--color-border)] px-3 py-2 text-sm font-medium">Dashboard</a>
-          </div>
-        </header>
+        <AppMobileHeader activeKey="settings" />
 
         <div className="mx-auto max-w-[800px] px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
           <header className="mb-6">
@@ -602,6 +500,8 @@ export default function SettingsModule(): React.JSX.Element {
           </div>
         </div>
       )}
+
+      <AppMobileNav activeKey="settings" />
     </main>
   );
 }
