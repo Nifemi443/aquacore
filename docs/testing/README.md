@@ -4,6 +4,7 @@ Testing strategy consolidated from Phase 3 (API) and Phase 4 (Backend).
 
 ## Related Documents
 
+- [Security Architecture §15](../architecture/10-security-architecture.md#15-testing-strategy) — Auth/RBAC test cases
 - [API Contract §12](../architecture/03-api-contract.md#12-testing-strategy)
 - [Backend Architecture §21](../architecture/04-backend-architecture.md#21-testing-architecture)
 - [Backend Guide](../backend/README.md)

@@ -21,6 +21,8 @@ PondDesk is a commercial fish farm management SaaS for freshwater/brackish aquac
 | 7 | [`docs/architecture/07-pydantic-schemas.md`](docs/architecture/07-pydantic-schemas.md) | Pydantic v2 DTO / schema architecture |
 | 8 | [`docs/architecture/08-repository-layer.md`](docs/architecture/08-repository-layer.md) | Repository layer & async data access design |
 | 9 | [`docs/architecture/09-service-layer.md`](docs/architecture/09-service-layer.md) | Service layer & business logic design |
+| 10 | [`docs/architecture/10-security-architecture.md`](docs/architecture/10-security-architecture.md) | AuthN, AuthZ, JWT, RBAC & security design |
+| 11 | [`docs/architecture/11-api-presentation-layer.md`](docs/architecture/11-api-presentation-layer.md) | FastAPI routes, DI & presentation layer |
 
 **ADRs:** [`docs/adr/README.md`](docs/adr/README.md) (15 accepted decisions)
 
@@ -159,9 +161,10 @@ Service catalog: `AuthService`, `FarmService`, `PondService`, `BatchService`, `F
 - JWT access: 15 min · Refresh: 7 days (rotation + reuse detection)
 - Password: Argon2id (ADR-014)
 - Roles: `ADMIN`, `MANAGER`, `WORKER`
-- Permissions: `ponds:read`, `harvest:create`, `reports:export`, etc.
+- Permissions: `ponds:read`, `harvests:write`, `reports:export`, etc.
 - Auth via `Depends(get_current_user)` — not global middleware
 - Resource ownership checked in services (`farm_id` match)
+- Full design: [`docs/architecture/10-security-architecture.md`](docs/architecture/10-security-architecture.md)
 
 ## Dependency Injection
 
@@ -227,6 +230,7 @@ Water records UI hidden (redirects to dashboard); backend schema preserved.
 
 - **Architecture questions** → `docs/architecture/`
 - **API endpoint details** → `docs/architecture/03-api-contract.md`
+- **Route / DI design** → `docs/architecture/11-api-presentation-layer.md`
 - **Table/column specs** → `docs/architecture/02-database-architecture.md`
 - **Where does logic go?** → `docs/architecture/04-backend-architecture.md` §3
 - **Why was X decided?** → `docs/adr/`

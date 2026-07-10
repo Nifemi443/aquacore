@@ -1,6 +1,6 @@
 # PondDesk Documentation
 
-Professional documentation system for the PondDesk Fish Farm Management Platform. All content is extracted from completed architecture phases (1–9) and organized for engineering, product, and AI-assisted development.
+Professional documentation system for the PondDesk Fish Farm Management Platform. All content is extracted from completed architecture phases (1–11) and organized for engineering, product, and AI-assisted development.
 
 ## Project Overview
 
@@ -9,9 +9,9 @@ Professional documentation system for the PondDesk Fish Farm Management Platform
 | Layer | Technology | Status |
 |-------|------------|--------|
 | Frontend | Next.js 14, TypeScript, Tailwind | MVP UI complete |
-| Backend | FastAPI, Python 3.13+ | Architecture through service layer complete, not implemented |
+| Backend | FastAPI, Python 3.13+ | Architecture through API presentation layer complete, not implemented |
 | Database | PostgreSQL 15+, SQLAlchemy 2.0 | Schema + ORM + migration strategy complete, not implemented |
-| Auth | JWT + RBAC | Designed |
+| Auth | JWT + RBAC + Argon2id | Security architecture complete (Phase 10) |
 | Future | Redis, Celery, AI, IoT | Roadmapped |
 
 ## Architecture Phases
@@ -27,6 +27,8 @@ Professional documentation system for the PondDesk Fish Farm Management Platform
 | **7** | [Pydantic Schemas](./architecture/07-pydantic-schemas.md) | DTO layer — Create/Patch/Response, envelopes, validation |
 | **8** | [Repository Layer](./architecture/08-repository-layer.md) | Async data access, Unit of Work, query & soft-delete strategy |
 | **9** | [Service Layer](./architecture/09-service-layer.md) | Business workflows, rules, transactions, domain events |
+| **10** | [Security Architecture](./architecture/10-security-architecture.md) | AuthN/AuthZ, JWT, RBAC, secrets, audit, hardening |
+| **11** | [API Presentation Layer](./architecture/11-api-presentation-layer.md) | Thin FastAPI routes, DI, envelopes, OpenAPI, health |
 
 ## Documentation Map
 
@@ -35,7 +37,7 @@ docs/
 ├── README.md                          ← You are here
 ├── AI_DEVELOPMENT_GUIDE.md            ← Guide for AI coding assistants
 │
-├── architecture/                      ← Canonical design documents (Phases 1–9)
+├── architecture/                      ← Canonical design documents (Phases 1–11)
 │   ├── 01-domain-model.md
 │   ├── 02-database-architecture.md
 │   ├── 03-api-contract.md
@@ -44,7 +46,9 @@ docs/
 │   ├── 06-migration-strategy.md
 │   ├── 07-pydantic-schemas.md
 │   ├── 08-repository-layer.md
-│   └── 09-service-layer.md
+│   ├── 09-service-layer.md
+│   ├── 10-security-architecture.md
+│   └── 11-api-presentation-layer.md
 │
 ├── api/                               ← API quick reference index
 ├── database/                          ← Database quick reference index
@@ -59,7 +63,7 @@ docs/
 │
 ├── adr/                               ← Architecture Decision Records (15 ADRs)
 ├── deployment/                        ← Startup, Docker, environments
-├── security/                          ← Auth, RBAC, security controls
+├── security/                          ← Auth, RBAC, security controls (index → Phase 10)
 └── testing/                           ← Test pyramid, fixtures, CI
 ```
 
@@ -72,6 +76,7 @@ docs/
 
 ### Backend Engineers
 - [Backend Architecture](./architecture/04-backend-architecture.md) — Start here for implementation
+- [API Presentation Layer (Phase 11)](./architecture/11-api-presentation-layer.md) — Thin routes & DI
 - [Backend Guide](./backend/README.md) — Layer rules and service catalog
 - [ADRs](./adr/README.md) — Accepted decisions
 - [AI Development Guide](./AI_DEVELOPMENT_GUIDE.md) — Rules for AI-assisted coding
@@ -83,8 +88,14 @@ docs/
 
 ### API / Frontend Engineers
 - [API Contract](./architecture/03-api-contract.md) — Full endpoint spec
+- [API Presentation Layer (Phase 11)](./architecture/11-api-presentation-layer.md) — Route & DI design
 - [API Guide](./api/README.md) — Router map and headers
 - [Error Handling](./architecture/03-api-contract.md#8-error-handling-strategy) — Standard error envelope
+
+### Security Engineers
+- [Security Architecture (Phase 10)](./architecture/10-security-architecture.md) — AuthN, AuthZ, JWT, RBAC, hardening
+- [Security Index](./security/README.md) — Quick reference
+- [ADR-006](./adr/ADR-006-jwt-with-refresh-token-rotation.md) · [ADR-007](./adr/ADR-007-rbac-with-permission-strings.md) · [ADR-014](./adr/ADR-014-argon2id-password-hashing.md)
 
 ### DevOps / SRE
 - [Deployment Guide](./deployment/README.md) — Startup lifecycle, health checks
@@ -123,7 +134,7 @@ Shared navigation: `src/components/app/` (`AppSidebar`, `AppMobileNav`, `nav-con
 
 ## Next Phase
 
-**Phase 10 — Implementation:** Thin API routes over [Phase 9 services](./architecture/09-service-layer.md), then vertical slices (auth → ponds → batches → feeding → harvest).
+**Phase 12 — Implementation:** Backend scaffold + vertical slices (auth → ponds → batches → feeding → harvest), implementing Phases 5–11 in dependency order.
 
 ## Document Conventions
 

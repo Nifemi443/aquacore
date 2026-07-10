@@ -837,4 +837,4 @@ async def record_harvest(
 ---
 
 **Document Status:** Ready for service implementation.  
-**Next Phase:** Phase 10 — API routes / dependency wiring (thin controllers over these services) + end-to-end auth.
+**Next Phase:** [Phase 10 — Security Architecture](./10-security-architecture.md), then Phase 11 — API routes / DI wiring.

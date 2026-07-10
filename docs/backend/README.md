@@ -12,18 +12,24 @@ Quick reference for FastAPI backend implementation. The canonical blueprint is i
 
 **[Service Layer (Phase 9)](../architecture/09-service-layer.md)** — Business workflows, rules, transactions, events.
 
+**[Security Architecture (Phase 10)](../architecture/10-security-architecture.md)** — AuthN, AuthZ, JWT, RBAC, secrets, audit.
+
+**[API Presentation Layer (Phase 11)](../architecture/11-api-presentation-layer.md)** — Thin FastAPI routes, DI, envelopes, OpenAPI.
+
 ## Related Documents
 
 - [API Contract](../architecture/03-api-contract.md) — HTTP contract to implement
+- [API Presentation Layer](../architecture/11-api-presentation-layer.md) — Route & DI design
 - [Pydantic Schemas](../architecture/07-pydantic-schemas.md) — Request/response DTOs
 - [Repository Layer](../architecture/08-repository-layer.md) — Data access design
 - [Service Layer](../architecture/09-service-layer.md) — Business logic design
+- [Security Architecture](../architecture/10-security-architecture.md) — AuthN/AuthZ design
 - [Database Architecture](../architecture/02-database-architecture.md) — ORM model targets
 - [ORM Model Design](../architecture/05-orm-models.md) — SQLAlchemy models
 - [ADRs](../adr/README.md) — Accepted architecture decisions
 - [Testing](../testing/README.md) — Test pyramid and fixtures
 - [Deployment](../deployment/README.md) — Startup lifecycle
-- [Security](../security/README.md) — Auth implementation details
+- [Security Index](../security/README.md) — Auth quick reference
 
 ## Stack
 

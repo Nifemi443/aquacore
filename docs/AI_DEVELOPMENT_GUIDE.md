@@ -148,18 +148,20 @@ backend/
 - Do not skip `farm_id` filtering in any query
 - Do not hard-delete operational fact records
 - Do not modify architecture without a new ADR
-- Do not regenerate Phase 1–9 documents — they are canonical in `docs/architecture/`
+- Do not regenerate Phase 1–11 documents — they are canonical in `docs/architecture/`
+- Password hashing is **Argon2id** (ADR-014 / Phase 10) — ignore historical bcrypt mentions in Phase 3
+- Routes stay thin — inject services only; no SQL or business rules in `app/api/` (Phase 11)
 
-## Implementation Order (Phase 10+)
+## Implementation Order (Phase 12+)
 
 1. Project scaffold (`backend/`, Docker, config, health checks)
 2. Database models + Alembic migrations ([Phase 5](architecture/05-orm-models.md), [Phase 6](architecture/06-migration-strategy.md))
 3. Pydantic schemas ([Phase 7](architecture/07-pydantic-schemas.md))
 4. Repository interfaces + SQLAlchemy implementations ([Phase 8](architecture/08-repository-layer.md))
-5. Services ([Phase 9](architecture/09-service-layer.md))
-6. API routes (thin controllers over services; [Phase 3](architecture/03-api-contract.md))
-7. Auth + RBAC
-8. Tests per layer
+5. Security primitives + AuthService ([Phase 10](architecture/10-security-architecture.md))
+6. Services ([Phase 9](architecture/09-service-layer.md))
+7. API routes + DI ([Phase 11](architecture/11-api-presentation-layer.md); contract [Phase 3](architecture/03-api-contract.md))
+8. Tests per layer (include auth/RBAC matrix + route overrides)
 9. Background tasks (reports, notifications)
 
 ## Key References
@@ -173,6 +175,8 @@ backend/
 - [Pydantic Schemas](architecture/07-pydantic-schemas.md)
 - [Repository Layer](architecture/08-repository-layer.md)
 - [Service Layer](architecture/09-service-layer.md)
+- [Security Architecture](architecture/10-security-architecture.md)
+- [API Presentation Layer](architecture/11-api-presentation-layer.md)
 - [ADR Index](adr/README.md)
-- [Security](security/README.md)
+- [Security Index](security/README.md)
 - [Testing](testing/README.md)

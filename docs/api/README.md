@@ -8,11 +8,15 @@ Quick reference for the PondDesk REST API. The canonical specification is in the
 
 **[Pydantic Schemas (Phase 7)](../architecture/07-pydantic-schemas.md)** — DTO folder structure, envelopes, Create/Patch/Response catalog.
 
+**[API Presentation Layer (Phase 11)](../architecture/11-api-presentation-layer.md)** — Thin FastAPI routes, DI, envelopes, OpenAPI, health.
+
 ## Related Documents
 
 - [Backend Architecture](../architecture/04-backend-architecture.md) — Route layer rules
+- [API Presentation Layer](../architecture/11-api-presentation-layer.md) — Route & DI design
 - [Pydantic Schemas](../architecture/07-pydantic-schemas.md) — Request/response DTOs
-- [Security](../security/README.md) — JWT, RBAC, headers
+- [Security Architecture (Phase 10)](../architecture/10-security-architecture.md) — Full AuthN/AuthZ design
+- [Security Index](../security/README.md) — JWT, RBAC, headers quick reference
 - [Domain Model](../architecture/01-domain-model.md) — Business rules behind endpoints
 - [Database Architecture](../architecture/02-database-architecture.md) — Table mappings
 
