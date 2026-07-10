@@ -7,6 +7,7 @@ Deployment and application lifecycle from Phase 4 backend architecture.
 - [Backend Architecture §4](../architecture/04-backend-architecture.md#4-application-startup-lifecycle)
 - [Backend Architecture §5](../architecture/04-backend-architecture.md#5-configuration-management)
 - [Backend Architecture §22](../architecture/04-backend-architecture.md#22-observability)
+- [Migration Strategy](../architecture/06-migration-strategy.md) — Alembic deploy & rollback
 - [API Contract §1.2 Base URLs](../architecture/03-api-contract.md#12-base-url--environment)
 
 ## Stack

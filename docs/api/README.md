@@ -6,9 +6,12 @@ Quick reference for the PondDesk REST API. The canonical specification is in the
 
 **[REST API Contract (Phase 3)](../architecture/03-api-contract.md)** — Full endpoint catalog, auth flow, validation, errors, and RBAC.
 
+**[Pydantic Schemas (Phase 7)](../architecture/07-pydantic-schemas.md)** — DTO folder structure, envelopes, Create/Patch/Response catalog.
+
 ## Related Documents
 
 - [Backend Architecture](../architecture/04-backend-architecture.md) — Route layer rules
+- [Pydantic Schemas](../architecture/07-pydantic-schemas.md) — Request/response DTOs
 - [Security](../security/README.md) — JWT, RBAC, headers
 - [Domain Model](../architecture/01-domain-model.md) — Business rules behind endpoints
 - [Database Architecture](../architecture/02-database-architecture.md) — Table mappings

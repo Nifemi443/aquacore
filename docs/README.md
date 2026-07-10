@@ -1,6 +1,6 @@
 # PondDesk Documentation
 
-Professional documentation system for the PondDesk Fish Farm Management Platform. All content is extracted from completed architecture phases (1–4) and organized for engineering, product, and AI-assisted development.
+Professional documentation system for the PondDesk Fish Farm Management Platform. All content is extracted from completed architecture phases (1–9) and organized for engineering, product, and AI-assisted development.
 
 ## Project Overview
 
@@ -9,8 +9,8 @@ Professional documentation system for the PondDesk Fish Farm Management Platform
 | Layer | Technology | Status |
 |-------|------------|--------|
 | Frontend | Next.js 14, TypeScript, Tailwind | MVP UI complete |
-| Backend | FastAPI, Python 3.13+ | Architecture complete, not implemented |
-| Database | PostgreSQL 15+, SQLAlchemy 2.0 | Architecture complete, not implemented |
+| Backend | FastAPI, Python 3.13+ | Architecture through service layer complete, not implemented |
+| Database | PostgreSQL 15+, SQLAlchemy 2.0 | Schema + ORM + migration strategy complete, not implemented |
 | Auth | JWT + RBAC | Designed |
 | Future | Redis, Celery, AI, IoT | Roadmapped |
 
@@ -22,6 +22,11 @@ Professional documentation system for the PondDesk Fish Farm Management Platform
 | **2** | [Database Architecture](./architecture/02-database-architecture.md) | PostgreSQL schema, ERD, constraints, indexes |
 | **3** | [API Contract](./architecture/03-api-contract.md) | REST API `/api/v1/` specification |
 | **4** | [Backend Architecture](./architecture/04-backend-architecture.md) | FastAPI internal architecture blueprint |
+| **5** | [ORM Model Design](./architecture/05-orm-models.md) | SQLAlchemy 2.0 models, mixins, enums, relationships |
+| **6** | [Migration Strategy](./architecture/06-migration-strategy.md) | Alembic versioning, evolution, deploy & rollback |
+| **7** | [Pydantic Schemas](./architecture/07-pydantic-schemas.md) | DTO layer — Create/Patch/Response, envelopes, validation |
+| **8** | [Repository Layer](./architecture/08-repository-layer.md) | Async data access, Unit of Work, query & soft-delete strategy |
+| **9** | [Service Layer](./architecture/09-service-layer.md) | Business workflows, rules, transactions, domain events |
 
 ## Documentation Map
 
@@ -30,11 +35,16 @@ docs/
 ├── README.md                          ← You are here
 ├── AI_DEVELOPMENT_GUIDE.md            ← Guide for AI coding assistants
 │
-├── architecture/                      ← Canonical design documents (Phases 1–4)
+├── architecture/                      ← Canonical design documents (Phases 1–9)
 │   ├── 01-domain-model.md
 │   ├── 02-database-architecture.md
 │   ├── 03-api-contract.md
-│   └── 04-backend-architecture.md
+│   ├── 04-backend-architecture.md
+│   ├── 05-orm-models.md
+│   ├── 06-migration-strategy.md
+│   ├── 07-pydantic-schemas.md
+│   ├── 08-repository-layer.md
+│   └── 09-service-layer.md
 │
 ├── api/                               ← API quick reference index
 ├── database/                          ← Database quick reference index
@@ -113,7 +123,7 @@ Shared navigation: `src/components/app/` (`AppSidebar`, `AppMobileNav`, `nav-con
 
 ## Next Phase
 
-**Phase 5 — Implementation:** Backend code following Phase 4 blueprint exactly. See [Implementation Readiness Checklist](./architecture/04-backend-architecture.md#implementation-readiness-checklist).
+**Phase 10 — Implementation:** Thin API routes over [Phase 9 services](./architecture/09-service-layer.md), then vertical slices (auth → ponds → batches → feeding → harvest).
 
 ## Document Conventions
 

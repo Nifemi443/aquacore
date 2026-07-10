@@ -16,6 +16,11 @@ PondDesk is a commercial fish farm management SaaS for freshwater/brackish aquac
 | 2 | [`docs/architecture/02-database-architecture.md`](docs/architecture/02-database-architecture.md) | PostgreSQL schema, ERD, constraints |
 | 3 | [`docs/architecture/03-api-contract.md`](docs/architecture/03-api-contract.md) | REST API `/api/v1/` specification |
 | 4 | [`docs/architecture/04-backend-architecture.md`](docs/architecture/04-backend-architecture.md) | FastAPI internal architecture |
+| 5 | [`docs/architecture/05-orm-models.md`](docs/architecture/05-orm-models.md) | SQLAlchemy 2.0 ORM model design |
+| 6 | [`docs/architecture/06-migration-strategy.md`](docs/architecture/06-migration-strategy.md) | Alembic migration & versioning strategy |
+| 7 | [`docs/architecture/07-pydantic-schemas.md`](docs/architecture/07-pydantic-schemas.md) | Pydantic v2 DTO / schema architecture |
+| 8 | [`docs/architecture/08-repository-layer.md`](docs/architecture/08-repository-layer.md) | Repository layer & async data access design |
+| 9 | [`docs/architecture/09-service-layer.md`](docs/architecture/09-service-layer.md) | Service layer & business logic design |
 
 **ADRs:** [`docs/adr/README.md`](docs/adr/README.md) (15 accepted decisions)
 

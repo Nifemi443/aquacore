@@ -148,16 +148,16 @@ backend/
 - Do not skip `farm_id` filtering in any query
 - Do not hard-delete operational fact records
 - Do not modify architecture without a new ADR
-- Do not regenerate Phase 1–4 documents — they are canonical in `docs/architecture/`
+- Do not regenerate Phase 1–9 documents — they are canonical in `docs/architecture/`
 
-## Implementation Order (Phase 5)
+## Implementation Order (Phase 10+)
 
 1. Project scaffold (`backend/`, Docker, config, health checks)
-2. Database models + Alembic migrations (from Phase 2)
-3. Repository interfaces + SQLAlchemy implementations
-4. Pydantic schemas (from Phase 3 request/response specs)
-5. Services (business rules from Phase 1)
-6. API routes (from Phase 3 endpoint catalog)
+2. Database models + Alembic migrations ([Phase 5](architecture/05-orm-models.md), [Phase 6](architecture/06-migration-strategy.md))
+3. Pydantic schemas ([Phase 7](architecture/07-pydantic-schemas.md))
+4. Repository interfaces + SQLAlchemy implementations ([Phase 8](architecture/08-repository-layer.md))
+5. Services ([Phase 9](architecture/09-service-layer.md))
+6. API routes (thin controllers over services; [Phase 3](architecture/03-api-contract.md))
 7. Auth + RBAC
 8. Tests per layer
 9. Background tasks (reports, notifications)
@@ -168,6 +168,11 @@ backend/
 - [Database Architecture](architecture/02-database-architecture.md)
 - [API Contract](architecture/03-api-contract.md)
 - [Backend Architecture](architecture/04-backend-architecture.md)
+- [ORM Models](architecture/05-orm-models.md)
+- [Migration Strategy](architecture/06-migration-strategy.md)
+- [Pydantic Schemas](architecture/07-pydantic-schemas.md)
+- [Repository Layer](architecture/08-repository-layer.md)
+- [Service Layer](architecture/09-service-layer.md)
 - [ADR Index](adr/README.md)
 - [Security](security/README.md)
 - [Testing](testing/README.md)

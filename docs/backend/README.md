@@ -6,10 +6,20 @@ Quick reference for FastAPI backend implementation. The canonical blueprint is i
 
 **[FastAPI Backend Architecture (Phase 4)](../architecture/04-backend-architecture.md)** — Folder structure, layers, DI, startup, security, testing, scalability.
 
+**[Pydantic Schemas (Phase 7)](../architecture/07-pydantic-schemas.md)** — DTO architecture, envelopes, validation split.
+
+**[Repository Layer (Phase 8)](../architecture/08-repository-layer.md)** — Async repositories, Unit of Work, query strategy.
+
+**[Service Layer (Phase 9)](../architecture/09-service-layer.md)** — Business workflows, rules, transactions, events.
+
 ## Related Documents
 
 - [API Contract](../architecture/03-api-contract.md) — HTTP contract to implement
+- [Pydantic Schemas](../architecture/07-pydantic-schemas.md) — Request/response DTOs
+- [Repository Layer](../architecture/08-repository-layer.md) — Data access design
+- [Service Layer](../architecture/09-service-layer.md) — Business logic design
 - [Database Architecture](../architecture/02-database-architecture.md) — ORM model targets
+- [ORM Model Design](../architecture/05-orm-models.md) — SQLAlchemy models
 - [ADRs](../adr/README.md) — Accepted architecture decisions
 - [Testing](../testing/README.md) — Test pyramid and fixtures
 - [Deployment](../deployment/README.md) — Startup lifecycle

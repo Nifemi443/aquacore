@@ -6,11 +6,17 @@ Quick reference for the PondDesk PostgreSQL schema. The canonical specification 
 
 **[Database Architecture & ERD (Phase 2)](../architecture/02-database-architecture.md)** — Full table specs, constraints, indexes, and ERD.
 
+**[ORM Model Design (Phase 5)](../architecture/05-orm-models.md)** — SQLAlchemy 2.0 models, mixins, enums, relationships.
+
+**[Migration Strategy (Phase 6)](../architecture/06-migration-strategy.md)** — Alembic structure, evolution, rollback, deploy.
+
 ## Related Documents
 
 - [Domain Model](../architecture/01-domain-model.md) — Business entities (Phase 1)
 - [API Contract](../architecture/03-api-contract.md) — Endpoints mapped to tables
 - [Backend Architecture](../architecture/04-backend-architecture.md) — Repository & session lifecycle
+- [ORM Model Design](../architecture/05-orm-models.md) — SQLAlchemy 2.0 mapping
+- [Migration Strategy](../architecture/06-migration-strategy.md) — Alembic handbook
 - [ERD Diagram](../diagrams/database-schema-layers.md) — Visual schema layers
 
 ## Stack
