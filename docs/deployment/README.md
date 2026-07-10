@@ -7,6 +7,7 @@ Deployment and application lifecycle from Phase 4 backend architecture.
 - [Backend Architecture §4](../architecture/04-backend-architecture.md#4-application-startup-lifecycle)
 - [Backend Architecture §5](../architecture/04-backend-architecture.md#5-configuration-management)
 - [Backend Architecture §22](../architecture/04-backend-architecture.md#22-observability)
+- [Background Processing (Phase 12)](../architecture/12-background-processing.md) — Workers, Beat, Redis queues
 - [Migration Strategy](../architecture/06-migration-strategy.md) — Alembic deploy & rollback
 - [API Contract §1.2 Base URLs](../architecture/03-api-contract.md#12-base-url--environment)
 
@@ -17,8 +18,8 @@ Deployment and application lifecycle from Phase 4 backend architecture.
 | API | FastAPI + Uvicorn/Gunicorn (Docker) |
 | Database | PostgreSQL 15+ |
 | Migrations | Alembic (run on deploy) |
-| Future cache | Redis |
-| Future workers | Celery |
+| Broker / cache | Redis (Phase 12) |
+| Workers | Celery worker + Celery Beat (Phase 12) |
 
 ## Environment URLs
 

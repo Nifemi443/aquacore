@@ -757,4 +757,4 @@ Re-parse response JSON with Phase 7 envelope models in tests to catch accidental
 ---
 
 **Document Status:** Ready for FastAPI route & DI implementation.  
-**Next Phase:** Phase 12 — Backend project scaffold & vertical-slice implementation (auth → ponds → batches → feeding → harvest), following Phases 5–11 in order.
+**Next Phase:** [Phase 12 — Background Processing](./12-background-processing.md), then Phase 13 — scaffold & vertical-slice implementation.

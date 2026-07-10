@@ -1,6 +1,6 @@
 # PondDesk Documentation
 
-Professional documentation system for the PondDesk Fish Farm Management Platform. All content is extracted from completed architecture phases (1–11) and organized for engineering, product, and AI-assisted development.
+Professional documentation system for the PondDesk Fish Farm Management Platform. All content is extracted from completed architecture phases (1–12) and organized for engineering, product, and AI-assisted development.
 
 ## Project Overview
 
@@ -9,10 +9,10 @@ Professional documentation system for the PondDesk Fish Farm Management Platform
 | Layer | Technology | Status |
 |-------|------------|--------|
 | Frontend | Next.js 14, TypeScript, Tailwind | MVP UI complete |
-| Backend | FastAPI, Python 3.13+ | Architecture through API presentation layer complete, not implemented |
+| Backend | FastAPI, Python 3.13+ | Architecture through background processing complete, not implemented |
 | Database | PostgreSQL 15+, SQLAlchemy 2.0 | Schema + ORM + migration strategy complete, not implemented |
 | Auth | JWT + RBAC + Argon2id | Security architecture complete (Phase 10) |
-| Future | Redis, Celery, AI, IoT | Roadmapped |
+| Future | Redis, Celery, AI, IoT | Async architecture designed (Phase 12); not implemented |
 
 ## Architecture Phases
 
@@ -29,6 +29,7 @@ Professional documentation system for the PondDesk Fish Farm Management Platform
 | **9** | [Service Layer](./architecture/09-service-layer.md) | Business workflows, rules, transactions, domain events |
 | **10** | [Security Architecture](./architecture/10-security-architecture.md) | AuthN/AuthZ, JWT, RBAC, secrets, audit, hardening |
 | **11** | [API Presentation Layer](./architecture/11-api-presentation-layer.md) | Thin FastAPI routes, DI, envelopes, OpenAPI, health |
+| **12** | [Background Processing](./architecture/12-background-processing.md) | Celery/Redis, events, schedules, notifications, AI jobs |
 
 ## Documentation Map
 
@@ -37,7 +38,7 @@ docs/
 ├── README.md                          ← You are here
 ├── AI_DEVELOPMENT_GUIDE.md            ← Guide for AI coding assistants
 │
-├── architecture/                      ← Canonical design documents (Phases 1–11)
+├── architecture/                      ← Canonical design documents (Phases 1–12)
 │   ├── 01-domain-model.md
 │   ├── 02-database-architecture.md
 │   ├── 03-api-contract.md
@@ -48,7 +49,8 @@ docs/
 │   ├── 08-repository-layer.md
 │   ├── 09-service-layer.md
 │   ├── 10-security-architecture.md
-│   └── 11-api-presentation-layer.md
+│   ├── 11-api-presentation-layer.md
+│   └── 12-background-processing.md
 │
 ├── api/                               ← API quick reference index
 ├── database/                          ← Database quick reference index
@@ -77,6 +79,7 @@ docs/
 ### Backend Engineers
 - [Backend Architecture](./architecture/04-backend-architecture.md) — Start here for implementation
 - [API Presentation Layer (Phase 11)](./architecture/11-api-presentation-layer.md) — Thin routes & DI
+- [Background Processing (Phase 12)](./architecture/12-background-processing.md) — Celery, events, schedules
 - [Backend Guide](./backend/README.md) — Layer rules and service catalog
 - [ADRs](./adr/README.md) — Accepted decisions
 - [AI Development Guide](./AI_DEVELOPMENT_GUIDE.md) — Rules for AI-assisted coding
@@ -134,7 +137,7 @@ Shared navigation: `src/components/app/` (`AppSidebar`, `AppMobileNav`, `nav-con
 
 ## Next Phase
 
-**Phase 12 — Implementation:** Backend scaffold + vertical slices (auth → ponds → batches → feeding → harvest), implementing Phases 5–11 in dependency order.
+**Phase 13 — Implementation:** Backend scaffold + vertical slices (auth → ponds → batches → feeding → harvest), implementing Phases 5–12 in dependency order.
 
 ## Document Conventions
 

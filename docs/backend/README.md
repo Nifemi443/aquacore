@@ -16,10 +16,13 @@ Quick reference for FastAPI backend implementation. The canonical blueprint is i
 
 **[API Presentation Layer (Phase 11)](../architecture/11-api-presentation-layer.md)** — Thin FastAPI routes, DI, envelopes, OpenAPI.
 
+**[Background Processing (Phase 12)](../architecture/12-background-processing.md)** — Celery/Redis, events, schedules, notifications, AI.
+
 ## Related Documents
 
 - [API Contract](../architecture/03-api-contract.md) — HTTP contract to implement
 - [API Presentation Layer](../architecture/11-api-presentation-layer.md) — Route & DI design
+- [Background Processing](../architecture/12-background-processing.md) — Async jobs & events
 - [Pydantic Schemas](../architecture/07-pydantic-schemas.md) — Request/response DTOs
 - [Repository Layer](../architecture/08-repository-layer.md) — Data access design
 - [Service Layer](../architecture/09-service-layer.md) — Business logic design

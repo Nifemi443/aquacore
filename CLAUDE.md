@@ -23,6 +23,7 @@ PondDesk is a commercial fish farm management SaaS for freshwater/brackish aquac
 | 9 | [`docs/architecture/09-service-layer.md`](docs/architecture/09-service-layer.md) | Service layer & business logic design |
 | 10 | [`docs/architecture/10-security-architecture.md`](docs/architecture/10-security-architecture.md) | AuthN, AuthZ, JWT, RBAC & security design |
 | 11 | [`docs/architecture/11-api-presentation-layer.md`](docs/architecture/11-api-presentation-layer.md) | FastAPI routes, DI & presentation layer |
+| 12 | [`docs/architecture/12-background-processing.md`](docs/architecture/12-background-processing.md) | Background tasks, events & automation |
 
 **ADRs:** [`docs/adr/README.md`](docs/adr/README.md) (15 accepted decisions)
 
@@ -39,7 +40,7 @@ PondDesk is a commercial fish farm management SaaS for freshwater/brackish aquac
 - Python 3.13+, FastAPI, PostgreSQL 15+
 - SQLAlchemy 2.0 (async), Alembic, Pydantic v2
 - JWT auth + RBAC, Docker
-- Future: Redis, Celery
+- Future: Redis, Celery (designed in Phase 12)
 
 ## Clean Architecture Layers
 
@@ -231,6 +232,7 @@ Water records UI hidden (redirects to dashboard); backend schema preserved.
 - **Architecture questions** → `docs/architecture/`
 - **API endpoint details** → `docs/architecture/03-api-contract.md`
 - **Route / DI design** → `docs/architecture/11-api-presentation-layer.md`
+- **Background jobs / events** → `docs/architecture/12-background-processing.md`
 - **Table/column specs** → `docs/architecture/02-database-architecture.md`
 - **Where does logic go?** → `docs/architecture/04-backend-architecture.md` §3
 - **Why was X decided?** → `docs/adr/`
