@@ -54,7 +54,7 @@ export default function AIFarmAssistant(): React.JSX.Element {
             Ask farm questions in plain language.
           </h2>
           <p className="text-base leading-[1.7] text-[var(--color-text-secondary)]">
-            AquaCore’s assistant reads the same pond, feeding, growth, and water data your team logs every day. It gives
+            PondDesk’s assistant reads the same pond, feeding, growth, and water data your team logs every day. It gives
             operational answers, not generic advice.
           </p>
         </div>
@@ -69,7 +69,7 @@ export default function AIFarmAssistant(): React.JSX.Element {
                 <SparkIcon />
               </span>
               <div>
-                <p className="text-sm font-semibold text-[var(--color-text-primary)]">AquaCore Assistant</p>
+                <p className="text-sm font-semibold text-[var(--color-text-primary)]">PondDesk Assistant</p>
                 <p className="text-xs text-[var(--color-text-muted)]">Connected to 12 ponds · 6 open tasks</p>
               </div>
             </div>

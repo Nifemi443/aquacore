@@ -358,7 +358,7 @@ export default function SettingsModule(): React.JSX.Element {
               )}
 
               {show("preferences") && (
-                <SettingsCard id="preferences" title="Preferences" description="Customize how AquaCore looks and behaves.">
+                <SettingsCard id="preferences" title="Preferences" description="Customize how PondDesk looks and behaves.">
                   <div className="space-y-6">
                     <fieldset>
                       <legend className="text-sm font-medium">Theme</legend>
@@ -443,7 +443,7 @@ export default function SettingsModule(): React.JSX.Element {
                 <SettingsCard id="support" title="Support" description="Get help and review policies.">
                   <div className="grid gap-3 sm:grid-cols-2">
                     {[
-                      { label: "Contact Support", href: "mailto:support@aquacore.app" },
+                      { label: "Contact Support", href: "mailto:support@ponddesk.app" },
                       { label: "Documentation", href: "#" },
                       { label: "Privacy Policy", href: "#" },
                       { label: "Terms of Service", href: "#" },

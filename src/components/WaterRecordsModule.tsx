@@ -189,7 +189,7 @@ export default function WaterRecordsModule(): React.JSX.Element {
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-[256px] border-r border-[var(--color-border)] bg-white/95 px-4 py-5 backdrop-blur-xl lg:block">
         <a href="/dashboard" className="flex items-center gap-2 px-2 transition-opacity hover:opacity-80">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent)] text-sm font-bold text-white">A</div>
-          <div><p className="text-sm font-bold tracking-[-0.02em]">AquaCore</p><p className="text-[11px] text-[var(--color-text-muted)]">Farm OS</p></div>
+          <div><p className="text-sm font-bold tracking-[-0.02em]">PondDesk</p><p className="text-[11px] text-[var(--color-text-muted)]">Farm OS</p></div>
         </a>
         <nav className="mt-8 space-y-1">
           {NAV_ITEMS.map((item) => (

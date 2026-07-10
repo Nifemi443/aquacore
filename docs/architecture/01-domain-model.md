@@ -2,7 +2,7 @@
 
 > **Phase:** 1 — Business Domain  
 > **Status:** Approved — Pre-Implementation  
-> **Project:** AquaCore Fish Farm Management Platform
+> **Project:** PondDesk Fish Farm Management Platform
 
 Business-first domain model for commercial fish farm operations. No persistence or API contracts at this layer.
 
@@ -601,7 +601,7 @@ Bounded contexts divide the domain for **scalable team ownership** and **clean i
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                         AQUACORE PLATFORM                                │
+│                         PONDDESK PLATFORM                                │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                          │
 │  ┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐   │
@@ -670,4 +670,4 @@ A commercial fish farm platform is not a collection of forms — it is a **produ
 
 The domain model above treats **Fish Batch** as the economic unit, **Pond** as the physical and environmental unit, **Feed Inventory** as the critical supply constraint, and **Harvest** as the biological-to-commercial bridge. Water quality, mortality, and feeding are not isolated features — they are **inputs to survival and growth**, which determine whether a batch reaches profitable harvest.
 
-This model supports the current AquaCore MVP modules (Dashboard, Ponds, Batches, Feedings, Inventory, Water Records, Harvest, Reports, Settings) and provides clean extension points for vendors, sales, expenses, IoT sensors, AI predictions, and multi-farm operations — without redesigning the core production spine.
+This model supports the current PondDesk MVP modules (Dashboard, Ponds, Batches, Feedings, Inventory, Water Records, Harvest, Reports, Settings) and provides clean extension points for vendors, sales, expenses, IoT sensors, AI predictions, and multi-farm operations — without redesigning the core production spine.

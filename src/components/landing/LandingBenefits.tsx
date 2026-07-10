@@ -53,7 +53,7 @@ export default function LandingBenefits(): React.JSX.Element {
             Measurable impact from day one.
           </h2>
           <p className="mt-5 text-lg leading-7 text-[var(--color-text-secondary)]">
-            Farms using AquaCore see improvements across feed efficiency, survival, and profitability.
+            Farms using PondDesk see improvements across feed efficiency, survival, and profitability.
           </p>
         </div>
 

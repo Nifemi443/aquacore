@@ -6,7 +6,7 @@
 
 ## Context
 
-AquaCore backend requires architectural decisions that remain maintainable for 5+ years across a growing fish farm SaaS platform.
+PondDesk backend requires architectural decisions that remain maintainable for 5+ years across a growing fish farm SaaS platform.
 
 ## Decision
 

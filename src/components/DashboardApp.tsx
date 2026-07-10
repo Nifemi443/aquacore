@@ -543,7 +543,7 @@ export default function DashboardApp(): React.JSX.Element {
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent)] text-sm font-bold text-white">
                 A
               </div>
-              <span className="text-sm font-bold">AquaCore</span>
+              <span className="text-sm font-bold">PondDesk</span>
             </div>
             <div className="hidden min-w-0 shrink-0 items-center gap-2 text-sm text-[var(--color-text-secondary)] xl:flex">
               <span className="font-medium text-[var(--color-text-primary)]">Greenwater Farm</span>
@@ -1166,7 +1166,7 @@ export default function DashboardApp(): React.JSX.Element {
           <section className="mb-6 grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
             <div className="rounded-xl border border-[var(--color-border)] bg-white">
               <div className="border-b border-[var(--color-border)] p-5 sm:p-6">
-                <h2 className="text-lg font-bold tracking-[-0.03em]">AquaCore AI</h2>
+                <h2 className="text-lg font-bold tracking-[-0.03em]">PondDesk AI</h2>
                 <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
                   Ask operational questions using the farm&apos;s live records.
                 </p>

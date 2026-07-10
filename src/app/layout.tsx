@@ -2,24 +2,55 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
+const siteName = "PondDesk";
+const tagline = "The operating system for modern fish farms.";
+const description =
+  "PondDesk helps fish farmers manage every aspect of their operation from one dashboard — fish batches, ponds, daily feeding, feed inventory, water quality, mortality, harvest planning, vendor deliveries, reports, and AI-powered farm insights.";
+
 export const metadata: Metadata = {
-  title: "AquaCore — AI Fish Farm Management Software | Aquaculture ERP",
-  description:
-    "AquaCore is the AI-powered fish farm operating system for commercial aquaculture. Manage ponds, fish batches, feeding schedules, feed inventory, harvests, water quality, vendors, and farm finances from one dashboard.",
+  metadataBase: new URL("https://ponddesk.app"),
+  title: {
+    default: `${siteName} — ${tagline}`,
+    template: `%s · ${siteName}`,
+  },
+  description,
+  applicationName: siteName,
   keywords: [
-    "AI fish farm management",
+    "PondDesk",
+    "fish farm management",
     "aquaculture software",
     "fish farm ERP",
-    "fish farm management system",
-    "aquaculture ERP",
-    "fish farming dashboard",
     "pond management software",
-    "harvest management",
+    "fish farming dashboard",
     "feed inventory management",
+    "harvest planning",
+    "water quality records",
     "commercial fish farming",
     "farm analytics",
     "agritech SaaS",
   ],
+  authors: [{ name: "PondDesk" }],
+  creator: "PondDesk",
+  publisher: "PondDesk",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://ponddesk.app",
+    siteName,
+    title: `${siteName} — ${tagline}`,
+    description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteName} — ${tagline}`,
+    description,
+    creator: "@ponddesk",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  category: "technology",
 };
 
 export default function RootLayout({

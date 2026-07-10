@@ -79,7 +79,7 @@ export default function WaterQualityMonitoring(): React.JSX.Element {
             Know which pond needs attention before fish are stressed.
           </h2>
           <p className="text-base leading-[1.7] text-[var(--color-text-secondary)]">
-            AquaCore keeps daily readings organized by pond, shows safe ranges in context, and makes trends obvious
+            PondDesk keeps daily readings organized by pond, shows safe ranges in context, and makes trends obvious
             without forcing teams to scan notebooks or message threads.
           </p>
         </div>

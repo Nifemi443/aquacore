@@ -83,7 +83,7 @@ export default function LandingHeroVisual(): React.JSX.Element {
           <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
           <span className="ml-3 flex-1 rounded-md bg-[var(--color-surface)] px-3 py-1 text-center text-[11px] text-[var(--color-text-muted)]">
-            app.aquacore.io/dashboard
+            app.ponddesk.io/dashboard
           </span>
         </div>
 

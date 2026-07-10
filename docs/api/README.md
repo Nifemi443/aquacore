@@ -1,6 +1,6 @@
 # API Documentation Index
 
-Quick reference for the AquaCore REST API. The canonical specification is in the architecture docs.
+Quick reference for the PondDesk REST API. The canonical specification is in the architecture docs.
 
 ## Canonical Document
 
@@ -17,8 +17,8 @@ Quick reference for the AquaCore REST API. The canonical specification is in the
 
 | Environment | URL |
 |-------------|-----|
-| Production | `https://api.aquacore.app/api/v1/` |
-| Staging | `https://api-staging.aquacore.app/api/v1/` |
+| Production | `https://api.ponddesk.app/api/v1/` |
+| Staging | `https://api-staging.ponddesk.app/api/v1/` |
 | Local | `http://localhost:8000/api/v1/` |
 
 ## Module Router Map

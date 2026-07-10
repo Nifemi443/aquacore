@@ -7,12 +7,12 @@ export default function LandingHero(): React.JSX.Element {
 
       <div className="relative mx-auto max-w-[1200px]">
         <div className="mx-auto max-w-[720px] text-center">
-          <p className="text-label mb-6">AI-Powered Fish Farm Operating System</p>
+          <p className="text-label mb-6">The operating system for modern fish farms</p>
           <h1 className="font-display text-[clamp(40px,6vw,72px)] font-bold leading-[1.05] tracking-[-0.04em] text-[var(--color-text-primary)]">
             Run your entire fish farm from one dashboard.
           </h1>
           <p className="mx-auto mt-6 max-w-[580px] text-lg leading-[1.7] text-[var(--color-text-secondary)]">
-            AquaCore helps commercial fish farms manage ponds, fish batches, feeding schedules, inventory, harvests,
+            PondDesk helps commercial fish farms manage ponds, fish batches, feeding schedules, inventory, harvests,
             water quality, vendors, and farm finances—all powered by AI.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -23,7 +23,7 @@ export default function LandingHero(): React.JSX.Element {
               Start Free Trial
             </a>
             <a
-              href="mailto:hello@aquacore.io"
+              href="mailto:hello@ponddesk.io"
               className="min-h-12 rounded-lg border border-[var(--color-border)] bg-white px-8 py-3 text-sm font-medium text-[var(--color-text-primary)] transition-all duration-200 hover:-translate-y-px hover:border-[var(--color-border-strong)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]"
             >
               Book Demo

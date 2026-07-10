@@ -217,7 +217,7 @@ export default function LandingSections(): React.JSX.Element {
         <section className="px-6 py-24 sm:py-32">
           <div className="mx-auto max-w-[1100px]">
             <h2 className="text-center text-[clamp(28px,4vw,40px)] font-bold leading-[1.12] tracking-[-0.04em]">
-              Why use AquaCore?
+              Why use PondDesk?
             </h2>
             <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {benefits.map((benefit) => (
@@ -241,16 +241,16 @@ export default function LandingSections(): React.JSX.Element {
             <h2 className="text-[clamp(26px,4vw,36px)] font-bold leading-[1.12] tracking-[-0.03em] text-white">
               Ready to modernize your fish farm?
             </h2>
-            <p className="mx-auto mt-4 max-w-[400px] text-white/80">Join the waitlist today and be among the first farms on AquaCore.</p>
+            <p className="mx-auto mt-4 max-w-[400px] text-white/80">Join the waitlist today and be among the first farms on PondDesk.</p>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <a
-                href="mailto:hello@aquacore.io?subject=AquaCore%20Waitlist"
+                href="mailto:hello@ponddesk.io?subject=PondDesk%20Waitlist"
                 className="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-8 text-sm font-medium text-[var(--color-accent)] transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_8px_24px_rgba(0,0,0,0.2)]"
               >
                 Join Waitlist
               </a>
               <a
-                href="mailto:hello@aquacore.io?subject=AquaCore%20Demo"
+                href="mailto:hello@ponddesk.io?subject=PondDesk%20Demo"
                 className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/30 px-8 text-sm font-medium text-white transition-all duration-200 hover:scale-[1.02] hover:bg-white/10"
               >
                 Book Demo

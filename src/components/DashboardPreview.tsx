@@ -349,7 +349,7 @@ export default function DashboardPreview(): React.JSX.Element {
               <span className="text-[var(--color-text-muted)]">
                 <LockIcon />
               </span>
-              <span className="truncate">app.aquacore.io/dashboard</span>
+              <span className="truncate">app.ponddesk.io/dashboard</span>
             </div>
           </div>
 
@@ -360,7 +360,7 @@ export default function DashboardPreview(): React.JSX.Element {
                   <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--color-accent)]">
                     <span className="text-[11px] font-bold text-white">A</span>
                   </div>
-                  <span className="text-[13px] font-bold text-[var(--color-text-primary)]">AquaCore</span>
+                  <span className="text-[13px] font-bold text-[var(--color-text-primary)]">PondDesk</span>
                 </div>
               </div>
               <p className="px-4 pb-2 pt-4 text-[10px] font-medium uppercase tracking-widest text-[var(--color-text-muted)]">

@@ -40,10 +40,10 @@ export default function LandingNav(): React.JSX.Element {
         <a
           href="#"
           className="flex items-center gap-2.5 transition-opacity duration-200 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
-          aria-label="AquaCore home"
+          aria-label="PondDesk home"
         >
           <LogoMark />
-          <span className="font-display text-[15px] font-bold tracking-[-0.03em]">AquaCore</span>
+          <span className="font-display text-[15px] font-bold tracking-[-0.03em]">PondDesk</span>
         </a>
 
         <div className="hidden items-center gap-7 lg:flex">
@@ -60,7 +60,7 @@ export default function LandingNav(): React.JSX.Element {
 
         <div className="flex items-center gap-2 sm:gap-3">
           <a
-            href="mailto:hello@aquacore.io"
+            href="mailto:hello@ponddesk.io"
             className="hidden rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] transition-all duration-200 hover:text-[var(--color-text-primary)] sm:inline-block"
           >
             Book Demo

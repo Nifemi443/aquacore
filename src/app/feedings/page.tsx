@@ -1,8 +1,8 @@
+import type { Metadata } from "next";
 import FeedingsModule from "@/components/FeedingsModule";
 
-export const metadata = {
-  title: "Today's Feedings · AquaCore",
-  description: "Monitor, schedule and record every feeding activity across all ponds in real time.",
+export const metadata: Metadata = {
+  title: "Today's Feedings",
 };
 
 export default function FeedingsPage(): React.JSX.Element {

@@ -4,8 +4,8 @@ import { useState } from "react";
 
 const faqs = [
   {
-    question: "How does AquaCore work?",
-    answer: "AquaCore is a cloud-based fish farm operating system. You set up your farm, add ponds and batches, then record daily operations like feeding, water tests, and mortality. AI analyzes your data and provides recommendations on feeding, harvest timing, inventory, and profitability.",
+    question: "How does PondDesk work?",
+    answer: "PondDesk is a cloud-based fish farm operating system. You set up your farm, add ponds and batches, then record daily operations like feeding, water tests, and mortality. AI analyzes your data and provides recommendations on feeding, harvest timing, inventory, and profitability.",
   },
   {
     question: "Can I manage multiple farms?",
@@ -13,11 +13,11 @@ const faqs = [
   },
   {
     question: "Can I use it offline?",
-    answer: "Yes. AquaCore's mobile app works offline. Record feedings, water tests, and mortality in the field, and data syncs automatically when you reconnect.",
+    answer: "Yes. PondDesk's mobile app works offline. Record feedings, water tests, and mortality in the field, and data syncs automatically when you reconnect.",
   },
   {
     question: "Does it support large commercial farms?",
-    answer: "Absolutely. AquaCore is built for commercial aquaculture operations with hundreds of ponds, multiple species, and large teams. Enterprise plans include custom integrations and dedicated support.",
+    answer: "Absolutely. PondDesk is built for commercial aquaculture operations with hundreds of ponds, multiple species, and large teams. Enterprise plans include custom integrations and dedicated support.",
   },
   {
     question: "Can my staff use it?",

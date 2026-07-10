@@ -12,7 +12,7 @@ export function AppSidebar({ activeKey }: { activeKey: AppNavKey }): React.JSX.E
           A
         </div>
         <div>
-          <p className="text-sm font-bold tracking-[-0.02em]">AquaCore</p>
+          <p className="text-sm font-bold tracking-[-0.02em]">PondDesk</p>
           <p className="text-[11px] text-[var(--color-text-muted)]">Farm OS</p>
         </div>
       </a>

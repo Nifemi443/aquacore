@@ -31,7 +31,7 @@ export default function LandingAI(): React.JSX.Element {
               Your AI farm manager.
             </h2>
             <p className="mt-5 text-lg leading-7 text-[var(--color-text-secondary)]">
-              Ask AquaCore anything about your farm. Get instant answers grounded in your live operational data—not
+              Ask PondDesk anything about your farm. Get instant answers grounded in your live operational data—not
               generic advice.
             </p>
             <div className="mt-8 flex flex-wrap gap-2">
@@ -59,7 +59,7 @@ export default function LandingAI(): React.JSX.Element {
                   AI
                 </div>
                 <div>
-                  <p className="text-sm font-semibold">AquaCore Assistant</p>
+                  <p className="text-sm font-semibold">PondDesk Assistant</p>
                   <p className="text-[11px] text-[var(--color-text-muted)]">Powered by your farm data</p>
                 </div>
               </div>

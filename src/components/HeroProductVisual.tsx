@@ -80,7 +80,7 @@ export default function HeroProductVisual(): React.JSX.Element {
             <span className="text-[var(--color-text-muted)]">
               <LockIcon />
             </span>
-            <span className="truncate">app.aquacore.io/today</span>
+            <span className="truncate">app.ponddesk.io/today</span>
           </div>
         </div>
 
@@ -95,7 +95,7 @@ export default function HeroProductVisual(): React.JSX.Element {
                   Complete morning feedings
                 </h3>
                 <p className="mt-2 max-w-[480px] text-sm leading-6 text-[var(--color-text-secondary)]">
-                  AquaCore turns pond records into a clear schedule your team can follow from the farm floor.
+                  PondDesk turns pond records into a clear schedule your team can follow from the farm floor.
                 </p>
               </div>
               <div className="rounded-md border border-[var(--color-accent-border)] bg-[var(--color-accent-light)] px-3 py-2 text-right">
@@ -168,7 +168,7 @@ export default function HeroProductVisual(): React.JSX.Element {
                 <p className="text-sm font-semibold text-[var(--color-text-primary)]">Pond 7 due next</p>
               </div>
               <p className="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">
-                95kg of 2mm pellet at 09:30. If missed, AquaCore flags the task before it becomes a farm-wide gap.
+                95kg of 2mm pellet at 09:30. If missed, PondDesk flags the task before it becomes a farm-wide gap.
               </p>
             </div>
           </aside>

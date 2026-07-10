@@ -23,8 +23,8 @@ Deployment and application lifecycle from Phase 4 backend architecture.
 
 | Environment | API Base |
 |-------------|----------|
-| Production | `https://api.aquacore.app/api/v1/` |
-| Staging | `https://api-staging.aquacore.app/api/v1/` |
+| Production | `https://api.ponddesk.app/api/v1/` |
+| Staging | `https://api-staging.ponddesk.app/api/v1/` |
 | Local | `http://localhost:8000/api/v1/` |
 
 ## Application Startup Sequence

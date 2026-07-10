@@ -18,7 +18,7 @@ const columns = [
     title: "Resources",
     links: [
       { label: "Documentation", href: "#" },
-      { label: "Support", href: "mailto:hello@aquacore.io" },
+      { label: "Support", href: "mailto:hello@ponddesk.io" },
       { label: "Community", href: "#" },
     ],
   },
@@ -52,12 +52,12 @@ export default function LandingFooter(): React.JSX.Element {
       <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div>
-            <a href="#" className="inline-flex items-center gap-2.5 transition-opacity duration-200 hover:opacity-80" aria-label="AquaCore home">
+            <a href="#" className="inline-flex items-center gap-2.5 transition-opacity duration-200 hover:opacity-80" aria-label="PondDesk home">
               <LogoMark />
-              <span className="text-base font-bold tracking-[-0.02em]">AquaCore</span>
+              <span className="text-base font-bold tracking-[-0.02em]">PondDesk</span>
             </a>
             <p className="mt-5 max-w-[320px] text-sm leading-6 text-[var(--color-text-secondary)]">
-              The AI-powered operating system for commercial aquaculture. Manage ponds, batches, feeding, inventory,
+              The operating system for modern fish farms. Manage ponds, batches, feeding, inventory,
               harvests, and finances from one dashboard.
             </p>
             <div className="mt-6 flex gap-4">
@@ -94,7 +94,7 @@ export default function LandingFooter(): React.JSX.Element {
         </div>
 
         <div className="mt-16 flex flex-col gap-4 border-t border-[var(--color-border)] pt-8 text-xs text-[var(--color-text-muted)] sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 AquaCore. AI fish farm management software for commercial aquaculture.</p>
+          <p>© 2026 PondDesk. AI fish farm management software for commercial aquaculture.</p>
           <p>Built in Lagos · Serving farms across Africa</p>
         </div>
       </div>

@@ -8,7 +8,7 @@ export default function LandingCaseStudy(): React.JSX.Element {
         <div className="mx-auto max-w-[600px] text-center">
           <p className="text-label mb-4">Case study</p>
           <h2 className="text-[clamp(32px,4vw,48px)] font-bold leading-[1.1] tracking-[-0.04em]">
-            Before and after AquaCore.
+            Before and after PondDesk.
           </h2>
           <p className="mt-5 text-lg leading-7 text-[var(--color-text-secondary)]">
             How Greenwater Farm transformed operations in one harvest cycle.
@@ -17,7 +17,7 @@ export default function LandingCaseStudy(): React.JSX.Element {
 
         <div className="mt-16 grid gap-6 md:grid-cols-2">
           <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-8">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">Before AquaCore</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">Before PondDesk</p>
             <ul className="mt-6 space-y-4">
               {before.map((item) => (
                 <li key={item} className="flex items-center gap-3 text-sm text-[var(--color-text-secondary)]">
@@ -28,7 +28,7 @@ export default function LandingCaseStudy(): React.JSX.Element {
             </ul>
           </div>
           <div className="rounded-2xl border border-[var(--color-accent-border)] bg-[var(--color-accent-light)] p-8">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--color-accent)]">After AquaCore</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--color-accent)]">After PondDesk</p>
             <ul className="mt-6 space-y-4">
               {after.map((item) => (
                 <li key={item} className="flex items-center gap-3 text-sm text-[var(--color-text-primary)]">

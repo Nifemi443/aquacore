@@ -2,7 +2,7 @@
 
 > **Source:** [Domain Model §1](../architecture/01-domain-model.md#1-complete-domain-model)
 
-The AquaCore domain is organized around one primary value chain: convert fingerlings into harvestable biomass through controlled pond operations.
+The PondDesk domain is organized around one primary value chain: convert fingerlings into harvestable biomass through controlled pond operations.
 
 ## Value Chain Diagram
 

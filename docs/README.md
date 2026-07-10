@@ -1,10 +1,10 @@
-# AquaCore Documentation
+# PondDesk Documentation
 
-Professional documentation system for the AquaCore Fish Farm Management Platform. All content is extracted from completed architecture phases (1–4) and organized for engineering, product, and AI-assisted development.
+Professional documentation system for the PondDesk Fish Farm Management Platform. All content is extracted from completed architecture phases (1–4) and organized for engineering, product, and AI-assisted development.
 
 ## Project Overview
 
-**AquaCore** is a commercial fish farm management SaaS platform for freshwater/brackish aquaculture (catfish, tilapia, and similar species).
+**PondDesk** is a commercial fish farm management SaaS platform for freshwater/brackish aquaculture (catfish, tilapia, and similar species).
 
 | Layer | Technology | Status |
 |-------|------------|--------|

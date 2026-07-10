@@ -16,7 +16,7 @@ export default function Hero(): React.JSX.Element {
         </h1>
 
         <p className="mx-auto mb-10 max-w-[520px] text-center text-[17px] leading-[1.7] text-[#737373]">
-          AquaCore gives commercial fish farmers precise feeding schedules,
+          PondDesk gives commercial fish farmers precise feeding schedules,
           treatment protocols, and growth forecasting — built around how
           Nigerian aquaculture actually operates.
         </p>

@@ -2,7 +2,7 @@
 
 > **Phase:** 4 — Application Blueprint  
 > **Status:** Approved — Pre-Implementation  
-> **Project:** AquaCore Fish Farm Management Platform
+> **Project:** PondDesk Fish Farm Management Platform
 
 Internal FastAPI application architecture: Clean Architecture, DI, repositories, services, and production readiness.
 
@@ -58,7 +58,7 @@ Internal FastAPI application architecture: Clean Architecture, DI, repositories,
   - [9. Service Architecture](#9-service-architecture)
     - [9.1 Services SHOULD](#91-services-should)
     - [9.2 Services NEVER](#92-services-never)
-    - [9.3 Service Catalog (AquaCore)](#93-service-catalog-aquacore)
+    - [9.3 Service Catalog (PondDesk)](#93-service-catalog-ponddesk)
     - [9.4 Service Method Signature Convention](#94-service-method-signature-convention)
   - [10. Route Architecture](#10-route-architecture)
     - [10.1 Routes ONLY](#101-routes-only)
@@ -136,7 +136,7 @@ Internal FastAPI application architecture: Clean Architecture, DI, repositories,
 
 ### 1.1 Architectural Style
 
-AquaCore backend follows **Clean Architecture** with **Domain-Driven Design (DDD)** applied pragmatically — not as ceremony, but where domain complexity justifies it (harvest workflows, feeding compliance, inventory depletion, batch lifecycle).
+PondDesk backend follows **Clean Architecture** with **Domain-Driven Design (DDD)** applied pragmatically — not as ceremony, but where domain complexity justifies it (harvest workflows, feeding compliance, inventory depletion, batch lifecycle).
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -155,7 +155,7 @@ AquaCore backend follows **Clean Architecture** with **Domain-Driven Design (DDD
 
 ### 1.2 Core Principles & Rationale
 
-| Principle | Application in AquaCore | Why |
+| Principle | Application in PondDesk | Why |
 |---|---|---|
 | **Clean Architecture** | Routes → Services → Repositories → DB; domain rules never import FastAPI/SQLAlchemy | Keeps business logic testable and framework-agnostic after 5 years |
 | **SOLID** | Single-responsibility services (`HarvestService`, not `FarmService` god object); repository interfaces per aggregate | Prevents the “10,000-line service” anti-pattern common in farm ops platforms |
@@ -732,7 +732,7 @@ SqlAlchemyPondRepository(PondRepository)  # implementation in repositories/sqlal
 | Pydantic schema definitions | `schemas/` |
 | Direct JWT decoding | `security/` + `dependencies/auth.py` |
 
-### 9.3 Service Catalog (AquaCore)
+### 9.3 Service Catalog (PondDesk)
 
 | Service | Primary Use Cases |
 |---|---|
@@ -996,7 +996,7 @@ Layer 3: Database Validation (Constraints + Repository)
 ### 14.3 CORS Configuration
 
 ```
-Allowed Origins:  [https://app.aquacore.ng]  (production)
+Allowed Origins:  [https://app.ponddesk.ng]  (production)
                   [http://localhost:3000]     (development)
 Allowed Methods:  GET, POST, PATCH, DELETE, OPTIONS
 Allowed Headers:  Authorization, Content-Type, X-Request-ID
@@ -1416,7 +1416,7 @@ Single deployable unit. Handles 1–50 farms, ~100 concurrent users.
 
 ### 23.4 Why Monolith First
 
-- AquaCore is pre-product-market-fit; microservices add operational cost without proportional benefit
+- PondDesk is pre-product-market-fit; microservices add operational cost without proportional benefit
 - Clean Architecture layers make future extraction straightforward:
   - `reports/` → Report Service
   - `notifications/` → Notification Service

@@ -106,7 +106,7 @@ export default function FeedingTracker(): React.JSX.Element {
             Mark feedings complete. In seconds.
           </h2>
           <p className="mb-8 text-base leading-[1.7] text-[var(--color-text-secondary)]">
-            Every morning, AquaCore generates your feeding schedule. Tap a card when done. The system logs the time,
+            Every morning, PondDesk generates your feeding schedule. Tap a card when done. The system logs the time,
             updates inventory, and flags anything overdue.
           </p>
 

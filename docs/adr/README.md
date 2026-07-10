@@ -1,6 +1,6 @@
 # Architecture Decision Records (ADR)
 
-Index of formal architecture decisions for the AquaCore backend. All decisions are extracted from Phase 4 and must not be changed without a new ADR.
+Index of formal architecture decisions for the PondDesk backend. All decisions are extracted from Phase 4 and must not be changed without a new ADR.
 
 ## Related Documents
 

@@ -126,7 +126,7 @@ export default function GrowthAnalytics(): React.JSX.Element {
             Track whether every batch is becoming harvestable biomass.
           </h2>
           <p className="mb-6 text-base leading-[1.7] text-[var(--color-text-secondary)]">
-            AquaCore connects feeding, mortality, and sample weights into a live production curve, so owners can see
+            PondDesk connects feeding, mortality, and sample weights into a live production curve, so owners can see
             whether a batch is ahead, behind, or ready for harvest planning.
           </p>
           <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5">

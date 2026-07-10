@@ -1,6 +1,6 @@
 # Database Documentation Index
 
-Quick reference for the AquaCore PostgreSQL schema. The canonical specification is in the architecture docs.
+Quick reference for the PondDesk PostgreSQL schema. The canonical specification is in the architecture docs.
 
 ## Canonical Document
 

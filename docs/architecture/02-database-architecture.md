@@ -2,7 +2,7 @@
 
 > **Phase:** 2 — Database Architecture  
 > **Status:** Approved — Pre-Implementation  
-> **Project:** AquaCore Fish Farm Management Platform
+> **Project:** PondDesk Fish Farm Management Platform
 
 Production-ready PostgreSQL relational architecture. Normalized, multi-tenant, audit-ready.
 
@@ -787,7 +787,7 @@ Water is a shared environmental property of a physical enclosure. Multiple batch
 
 **UUID v7 for all primary keys.**
 
-Justification for AquaCore:
+Justification for PondDesk:
 - Mobile field workers record feedings and water tests offline
 - Multi-tenant SaaS may shard by `farm_id` in future
 - API exposes record IDs — non-sequential IDs reduce enumeration risk

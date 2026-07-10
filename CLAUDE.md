@@ -1,10 +1,10 @@
-# CLAUDE.md — AquaCore Project Context
+# CLAUDE.md — PondDesk Project Context
 
-This file provides context for AI coding assistants working on the AquaCore Fish Farm Management Platform.
+This file provides context for AI coding assistants working on the PondDesk Fish Farm Management Platform.
 
 ## Project Summary
 
-AquaCore is a commercial fish farm management SaaS for freshwater/brackish aquaculture. The frontend MVP (Next.js) is built. The backend (FastAPI + PostgreSQL) has complete architecture documentation but is not yet implemented.
+PondDesk is a commercial fish farm management SaaS for freshwater/brackish aquaculture. The frontend MVP (Next.js) is built. The backend (FastAPI + PostgreSQL) has complete architecture documentation but is not yet implemented.
 
 **Full documentation:** [`docs/README.md`](docs/README.md)
 

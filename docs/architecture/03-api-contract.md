@@ -2,7 +2,7 @@
 
 > **Phase:** 3 — API Architecture  
 > **Status:** Approved — Pre-Implementation  
-> **Project:** AquaCore Fish Farm Management Platform
+> **Project:** PondDesk Fish Farm Management Platform
 
 Complete REST API specification under `/api/v1/`. Stateless, versioned, farm-scoped.
 
@@ -133,8 +133,8 @@ Complete REST API specification under `/api/v1/`. Stateless, versioned, farm-sco
 ### 1.2 Base URL & Environment
 
 ```
-Production:  https://api.aquacore.app/api/v1/
-Staging:     https://api-staging.aquacore.app/api/v1/
+Production:  https://api.ponddesk.app/api/v1/
+Staging:     https://api-staging.ponddesk.app/api/v1/
 Local:       http://localhost:8000/api/v1/
 ```
 
@@ -940,7 +940,7 @@ bcrypt, cost 12. Never log or return password fields.
 ### 9.4 CORS
 
 ```
-Allowed origins: https://app.aquacore.app, http://localhost:3000
+Allowed origins: https://app.ponddesk.app, http://localhost:3000
 Allowed methods: GET, POST, PATCH, DELETE, OPTIONS
 Allowed headers: Authorization, Content-Type, X-Farm-Id, X-Request-Id
 Credentials: true

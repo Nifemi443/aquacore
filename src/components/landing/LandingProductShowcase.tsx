@@ -82,7 +82,7 @@ export default function LandingProductShowcase(): React.JSX.Element {
             <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
-            <span className="ml-3 text-xs text-[var(--color-text-muted)]">app.aquacore.io/{current.id}</span>
+            <span className="ml-3 text-xs text-[var(--color-text-muted)]">app.ponddesk.io/{current.id}</span>
           </div>
           <div className="grid gap-6 p-6 sm:grid-cols-[1fr_2fr] sm:p-8">
             <div className="space-y-4">

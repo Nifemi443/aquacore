@@ -22,10 +22,10 @@ export default function Nav(): React.JSX.Element {
         <a
           href="#"
           className="flex items-center gap-2 transition-all duration-200 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
-          aria-label="AquaCore home"
+          aria-label="PondDesk home"
         >
           <LogoMark />
-          <span className="text-sm font-bold tracking-[-0.02em] text-[var(--color-text-primary)]">AquaCore</span>
+          <span className="text-sm font-bold tracking-[-0.02em] text-[var(--color-text-primary)]">PondDesk</span>
         </a>
 
         <div className="hidden items-center gap-6 lg:flex">

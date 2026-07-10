@@ -1,6 +1,6 @@
 # AI Development Guide
 
-Instructions for AI coding assistants (Claude, Cursor, Copilot, etc.) working on the AquaCore project.
+Instructions for AI coding assistants (Claude, Cursor, Copilot, etc.) working on the PondDesk project.
 
 ## Before Writing Any Code
 

@@ -9,7 +9,7 @@ export default function LandingSolution(): React.JSX.Element {
       <div className="mx-auto max-w-[1200px] text-center">
         <p className="text-label mb-4">The solution</p>
         <h2 className="text-[clamp(32px,4vw,48px)] font-bold leading-[1.1] tracking-[-0.04em]">
-          Meet AquaCore.
+          Meet PondDesk.
         </h2>
         <p className="mx-auto mt-5 max-w-[560px] text-lg leading-7 text-[var(--color-text-secondary)]">
           One operating system for every part of your farm—from fingerling to harvest, from feed bag to profit report.

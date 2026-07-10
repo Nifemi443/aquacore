@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PondDesk
+
+**The operating system for modern fish farms.**
+
+PondDesk is a commercial fish farm management SaaS for freshwater/brackish aquaculture. Manage ponds, fish batches, daily feeding, feed inventory, water quality, mortality, harvest planning, vendor deliveries, reports, and AI-powered farm insights from one dashboard.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Layer | Technology | Status |
+|-------|------------|--------|
+| Frontend | Next.js 14, TypeScript, Tailwind | MVP UI complete |
+| Backend | FastAPI, Python 3.13+ | Architecture complete |
+| Database | PostgreSQL 15+, SQLAlchemy 2.0 | Architecture complete |
 
-## Learn More
+## Documentation
 
-To learn more about Next.js, take a look at the following resources:
+See [`docs/README.md`](docs/README.md) for the full architecture documentation (Phases 1–4).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+AI assistants: start with [`CLAUDE.md`](CLAUDE.md).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Scripts
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |

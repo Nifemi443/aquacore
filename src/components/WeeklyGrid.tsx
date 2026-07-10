@@ -136,7 +136,7 @@ export default function WeeklyGrid(): React.JSX.Element {
           The full week. At a glance.
         </h2>
         <p className="text-base leading-[1.7] text-[var(--color-text-secondary)]">
-          Click any cell to mark a feeding complete. AquaCore tracks every pond, every day.
+          Click any cell to mark a feeding complete. PondDesk tracks every pond, every day.
         </p>
       </div>
 

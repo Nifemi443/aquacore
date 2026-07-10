@@ -9,7 +9,7 @@ const productLinks = [
 const companyLinks = [
   { label: "Live overview", href: "#live-dashboard" },
   { label: "Join waitlist", href: "#" },
-  { label: "Contact sales", href: "mailto:hello@aquacore.io" },
+  { label: "Contact sales", href: "mailto:hello@ponddesk.io" },
 ] as const;
 
 function LogoMark(): React.JSX.Element {
@@ -29,10 +29,10 @@ export default function Footer(): React.JSX.Element {
             <a
               href="#"
               className="inline-flex items-center gap-2 transition-all duration-200 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
-              aria-label="AquaCore home"
+              aria-label="PondDesk home"
             >
               <LogoMark />
-              <span className="text-base font-bold tracking-[-0.02em] text-[var(--color-text-primary)]">AquaCore</span>
+              <span className="text-base font-bold tracking-[-0.02em] text-[var(--color-text-primary)]">PondDesk</span>
             </a>
             <p className="mt-5 max-w-[320px] text-sm leading-6 text-[var(--color-text-secondary)]">
               Operating software for commercial fish farms: feeding schedules, pond health, growth curves, and live farm
@@ -72,7 +72,7 @@ export default function Footer(): React.JSX.Element {
         </div>
 
         <div className="mt-16 flex flex-col gap-4 border-t border-[var(--color-border)] pt-8 text-xs text-[var(--color-text-muted)] sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 AquaCore. Built for aquaculture operators.</p>
+          <p>© 2026 PondDesk. Built for aquaculture operators.</p>
           <p>Now in beta · Nigerian aquaculture first</p>
         </div>
       </div>

@@ -9,7 +9,7 @@ export default function LandingFinalCTA(): React.JSX.Element {
               Ready to modernize your fish farm?
             </h2>
             <p className="mx-auto mt-5 max-w-[480px] text-lg leading-7 text-white/80">
-              Join commercial farms using AquaCore to reduce waste, increase survival, and grow profitability.
+              Join commercial farms using PondDesk to reduce waste, increase survival, and grow profitability.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <a
@@ -19,7 +19,7 @@ export default function LandingFinalCTA(): React.JSX.Element {
                 Start Free Trial
               </a>
               <a
-                href="mailto:hello@aquacore.io"
+                href="mailto:hello@ponddesk.io"
                 className="min-h-12 rounded-lg border border-white/30 px-8 py-3 text-sm font-medium text-white transition-all duration-200 hover:-translate-y-px hover:border-white/60 hover:bg-white/10"
               >
                 Book Demo
