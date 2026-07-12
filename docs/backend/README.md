@@ -18,11 +18,21 @@ Quick reference for FastAPI backend implementation. The canonical blueprint is i
 
 **[Background Processing (Phase 12)](../architecture/12-background-processing.md)** — Celery/Redis, events, schedules, notifications, AI.
 
+**[Testing Architecture (Phase 13)](../architecture/13-testing-architecture.md)** — Pyramid, CI, coverage, security & async QA.
+
+**[Infrastructure Architecture (Phase 14)](../architecture/14-infrastructure-architecture.md)** — Docker, Compose, Nginx, envs, DX.  
+**[CI/CD & Production Deployment (Phase 15)](../architecture/15-cicd-deployment-architecture.md)** — Pipelines, releases, rollback.  
+**[Observability Architecture (Phase 16)](../architecture/16-observability-architecture.md)** — Logging, metrics, tracing, alerts.  
+**[Performance & Scalability (Phase 17)](../architecture/17-performance-scalability-architecture.md)** — Caching, scale roadmap, load tests.  
+**[Production Readiness & Governance (Phase 18)](../architecture/18-production-readiness-governance.md)** — Launch checklist, DR, change management.
+
 ## Related Documents
 
 - [API Contract](../architecture/03-api-contract.md) — HTTP contract to implement
 - [API Presentation Layer](../architecture/11-api-presentation-layer.md) — Route & DI design
 - [Background Processing](../architecture/12-background-processing.md) — Async jobs & events
+- [Testing Architecture](../architecture/13-testing-architecture.md) — QA strategy
+- [Infrastructure Architecture](../architecture/14-infrastructure-architecture.md) — Runtime platform
 - [Pydantic Schemas](../architecture/07-pydantic-schemas.md) — Request/response DTOs
 - [Repository Layer](../architecture/08-repository-layer.md) — Data access design
 - [Service Layer](../architecture/09-service-layer.md) — Business logic design
@@ -30,7 +40,7 @@ Quick reference for FastAPI backend implementation. The canonical blueprint is i
 - [Database Architecture](../architecture/02-database-architecture.md) — ORM model targets
 - [ORM Model Design](../architecture/05-orm-models.md) — SQLAlchemy models
 - [ADRs](../adr/README.md) — Accepted architecture decisions
-- [Testing](../testing/README.md) — Test pyramid and fixtures
+- [Testing Index](../testing/README.md) — Test pyramid quick reference
 - [Deployment](../deployment/README.md) — Startup lifecycle
 - [Security Index](../security/README.md) — Auth quick reference
 

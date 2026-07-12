@@ -1,6 +1,6 @@
 # PondDesk Documentation
 
-Professional documentation system for the PondDesk Fish Farm Management Platform. All content is extracted from completed architecture phases (1–12) and organized for engineering, product, and AI-assisted development.
+Professional documentation system for the PondDesk Fish Farm Management Platform. All content is extracted from completed architecture phases (1–18) and organized for engineering, product, and AI-assisted development.
 
 ## Project Overview
 
@@ -9,10 +9,10 @@ Professional documentation system for the PondDesk Fish Farm Management Platform
 | Layer | Technology | Status |
 |-------|------------|--------|
 | Frontend | Next.js 14, TypeScript, Tailwind | MVP UI complete |
-| Backend | FastAPI, Python 3.13+ | Architecture through background processing complete, not implemented |
+| Backend | FastAPI, Python 3.13+ | Architecture complete through production governance (Phase 18); not implemented |
 | Database | PostgreSQL 15+, SQLAlchemy 2.0 | Schema + ORM + migration strategy complete, not implemented |
 | Auth | JWT + RBAC + Argon2id | Security architecture complete (Phase 10) |
-| Future | Redis, Celery, AI, IoT | Async architecture designed (Phase 12); not implemented |
+| Future | Redis, Celery, AI, IoT | Full platform architecture Phases 12–18; not implemented |
 
 ## Architecture Phases
 
@@ -30,6 +30,12 @@ Professional documentation system for the PondDesk Fish Farm Management Platform
 | **10** | [Security Architecture](./architecture/10-security-architecture.md) | AuthN/AuthZ, JWT, RBAC, secrets, audit, hardening |
 | **11** | [API Presentation Layer](./architecture/11-api-presentation-layer.md) | Thin FastAPI routes, DI, envelopes, OpenAPI, health |
 | **12** | [Background Processing](./architecture/12-background-processing.md) | Celery/Redis, events, schedules, notifications, AI jobs |
+| **13** | [Testing Architecture](./architecture/13-testing-architecture.md) | Pyramid, suites, CI, coverage, security & async QA |
+| **14** | [Infrastructure Architecture](./architecture/14-infrastructure-architecture.md) | Docker, Compose, Nginx, envs, DX, backups, scale |
+| **15** | [CI/CD & Production Deployment](./architecture/15-cicd-deployment-architecture.md) | GitHub Actions, CD, releases, rollback, zero-downtime, DR |
+| **16** | [Monitoring & Observability](./architecture/16-observability-architecture.md) | Logging, metrics, tracing, alerts, dashboards, incident response |
+| **17** | [Performance & Scalability](./architecture/17-performance-scalability-architecture.md) | Caching, DB scale, API/worker tuning, load tests, growth roadmap |
+| **18** | [Production Readiness & Governance](./architecture/18-production-readiness-governance.md) | Launch checklist, DR, backups, ops, risk, compliance, CTO sign-off |
 
 ## Documentation Map
 
@@ -38,7 +44,7 @@ docs/
 ├── README.md                          ← You are here
 ├── AI_DEVELOPMENT_GUIDE.md            ← Guide for AI coding assistants
 │
-├── architecture/                      ← Canonical design documents (Phases 1–12)
+├── architecture/                      ← Canonical design documents (Phases 1–18)
 │   ├── 01-domain-model.md
 │   ├── 02-database-architecture.md
 │   ├── 03-api-contract.md
@@ -50,7 +56,13 @@ docs/
 │   ├── 09-service-layer.md
 │   ├── 10-security-architecture.md
 │   ├── 11-api-presentation-layer.md
-│   └── 12-background-processing.md
+│   ├── 12-background-processing.md
+│   ├── 13-testing-architecture.md
+│   ├── 14-infrastructure-architecture.md
+│   ├── 15-cicd-deployment-architecture.md
+│   ├── 16-observability-architecture.md
+│   ├── 17-performance-scalability-architecture.md
+│   └── 18-production-readiness-governance.md
 │
 ├── api/                               ← API quick reference index
 ├── database/                          ← Database quick reference index
@@ -64,7 +76,7 @@ docs/
 │   └── api-and-backend-layers.md
 │
 ├── adr/                               ← Architecture Decision Records (15 ADRs)
-├── deployment/                        ← Startup, Docker, environments
+├── deployment/                        ← Startup, Docker, CI/CD, DR indexes
 ├── security/                          ← Auth, RBAC, security controls (index → Phase 10)
 └── testing/                           ← Test pyramid, fixtures, CI
 ```
@@ -101,11 +113,17 @@ docs/
 - [ADR-006](./adr/ADR-006-jwt-with-refresh-token-rotation.md) · [ADR-007](./adr/ADR-007-rbac-with-permission-strings.md) · [ADR-014](./adr/ADR-014-argon2id-password-hashing.md)
 
 ### DevOps / SRE
-- [Deployment Guide](./deployment/README.md) — Startup lifecycle, health checks
-- [Observability](./architecture/04-backend-architecture.md#22-observability) — Metrics, tracing, audit
+- [Infrastructure Architecture (Phase 14)](./architecture/14-infrastructure-architecture.md) — Docker, Compose, Nginx, DX
+- [CI/CD & Production Deployment (Phase 15)](./architecture/15-cicd-deployment-architecture.md) — Pipelines, releases, rollback, DR
+- [Monitoring & Observability (Phase 16)](./architecture/16-observability-architecture.md) — Logs, metrics, traces, alerts, runbooks
+- [Performance & Scalability (Phase 17)](./architecture/17-performance-scalability-architecture.md) — Caching, DB/API scale, load tests, growth roadmap
+- [Production Readiness & Governance (Phase 18)](./architecture/18-production-readiness-governance.md) — Launch checklist, DR, ops, CTO sign-off
+- [Deployment Guide](./deployment/README.md) — Startup lifecycle, health checks, delivery index
+- [Observability sketch (Phase 4)](./architecture/04-backend-architecture.md#22-observability) — Early metrics/tracing notes (detail in Phase 16)
 
 ### QA
-- [Testing Guide](./testing/README.md) — Test pyramid and CI pipeline
+- [Testing Architecture (Phase 13)](./architecture/13-testing-architecture.md) — Full QA strategy
+- [Testing Guide](./testing/README.md) — Test pyramid and CI pipeline quick reference
 
 ## Critical Design Rules
 
@@ -137,7 +155,7 @@ Shared navigation: `src/components/app/` (`AppSidebar`, `AppMobileNav`, `nav-con
 
 ## Next Phase
 
-**Phase 13 — Implementation:** Backend scaffold + vertical slices (auth → ponds → batches → feeding → harvest), implementing Phases 5–12 in dependency order.
+**Phase 19 — Implementation:** Backend scaffold + Docker Compose + CI/CD + observability + performance baselines + vertical slices (auth → ponds → batches → feeding → harvest), executing Phases 5–18 as the binding specification. Launch gated by Phase 18 §2 checklist.
 
 ## Document Conventions
 
@@ -148,4 +166,4 @@ Shared navigation: `src/components/app/` (`AppSidebar`, `AppMobileNav`, `nav-con
 
 ---
 
-*Last organized: 2026-07-09 · Source: Conversation architecture phases 1–4*
+*Last organized: 2026-07-12 · Source: Conversation architecture phases 1–18*

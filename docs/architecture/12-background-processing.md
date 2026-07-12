@@ -637,4 +637,4 @@ Do not require live SMTP in CI — use fake email backend.
 ---
 
 **Document Status:** Ready for async infrastructure & worker implementation.  
-**Next Phase:** Phase 13 — Backend project scaffold & vertical-slice implementation (auth → ponds → batches → feeding → harvest), wiring Phases 5–12.
+**Next Phase:** [Phase 13 — Testing Architecture](./13-testing-architecture.md), then Phase 14 — scaffold & vertical-slice implementation.

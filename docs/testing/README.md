@@ -1,9 +1,10 @@
 # Testing Architecture
 
-Testing strategy consolidated from Phase 3 (API) and Phase 4 (Backend).
+Quick reference for PondDesk quality engineering. **Canonical specification:** [Phase 13 — Testing Architecture](../architecture/13-testing-architecture.md).
 
 ## Related Documents
 
+- **[Testing Architecture (Phase 13)](../architecture/13-testing-architecture.md)** — Full pyramid, suites, CI, coverage, failure scenarios
 - [Security Architecture §15](../architecture/10-security-architecture.md#15-testing-strategy) — Auth/RBAC test cases
 - [Background Processing §14](../architecture/12-background-processing.md#14-testing-strategy) — Task/queue/retry tests
 - [API Contract §12](../architecture/03-api-contract.md#12-testing-strategy)
@@ -13,10 +14,10 @@ Testing strategy consolidated from Phase 3 (API) and Phase 4 (Backend).
 ## Test Pyramid
 
 ```
-        ╱  API Tests  ╲          (10%)
-       ╱ Integration   ╲        (20%)
-      ╱  Service Tests   ╲      (30%)
-     ╱   Unit Tests        ╲    (40%)
+        ╱  API / E2E   ╲     ~10%
+       ╱  Integration   ╲    ~20%
+      ╱  Service tests   ╲   ~30%
+     ╱  Unit (domain+)    ╲  ~40%
 ```
 
 ## Test Categories
@@ -24,54 +25,68 @@ Testing strategy consolidated from Phase 3 (API) and Phase 4 (Backend).
 | Category | Scope | Database | Tools |
 |----------|-------|----------|-------|
 | **Unit** | Domain rules, validators, schemas | None | pytest |
-| **Service** | Business workflows, mocked repos | None | pytest + mock |
+| **Service** | Business workflows, mocked repos | None | pytest + fakes |
 | **Repository** | CRUD, query correctness | Test Postgres | pytest |
 | **API** | Full HTTP cycle, auth, RBAC | Test Postgres | pytest + httpx |
-| **Auth** | Login, refresh, token expiry | Test Postgres | pytest + httpx |
-| **Integration** | Multi-service workflows | Test Postgres | pytest |
+| **Auth / Security** | Login, refresh, matrix, lockout | Test Postgres | pytest + httpx |
+| **Integration** | Multi-service workflows, migrations | Test Postgres | pytest |
+| **E2E** | Stock → feed → harvest → report | Test Postgres | pytest + httpx |
+| **Tasks** | Eager Celery, notifications, retries | Optional Redis | pytest |
 
 ## Directory Structure
 
 ```
 tests/
 ├── conftest.py
-├── factories/          # user_factory, pond_factory, batch_factory
+├── factories/
 ├── fixtures/
+├── mocks/
+├── data/
 ├── unit/
 │   ├── domain/
 │   ├── services/
-│   └── validators/
+│   ├── schemas/
+│   ├── security/
+│   └── utils/
 ├── integration/
 │   ├── repositories/
-│   └── database/
-└── api/
-    ├── v1/
-    └── auth/
+│   ├── database/
+│   ├── authentication/
+│   ├── migrations/
+│   └── tasks/
+├── api/v1/
+├── e2e/user_flows/
+├── security/
+├── performance/
+└── load/
 ```
 
 ## Mocking Strategy
 
 | Component | Mock In | Real In |
 |-----------|---------|---------|
-| Repositories | Service tests | Repository + API tests |
+| Repositories | Service / unit tests | Repository + API tests |
 | Database | Unit, service tests | Integration, API tests |
 | Storage backend | All except storage tests | Storage integration |
 | Email/notifications | All except notification tests | Notification integration |
-| Celery tasks | API tests (assert enqueue) | Task unit tests |
+| Celery tasks | API tests (assert enqueue) | Task unit / eager tests |
+| AI / SMS | Always fake in CI | Staging optional |
 
 ## DI Testing
 
-Override dependencies via `app.dependency_overrides[get_db_session]`. Never monkey-patch service internals.
+Override dependencies via `app.dependency_overrides[get_db_session]` / `get_*_service`. Never monkey-patch service internals.
 
 ## CI Pipeline
 
 ```
-lint (ruff) → type-check (mypy) → unit → integration (Docker Postgres) → API → coverage (≥80%)
+ruff → mypy → bandit → unit → Postgres + migrations → integration/api/security → coverage (≥80%)
 ```
+
+Nightly / main: E2E, migration downgrade smoke, optional load.
 
 ## Factories
 
-Use `factory_boy` or lightweight factory functions. Each test creates only required data. Database reset between tests (transaction rollback or truncate).
+Use `factory_boy` or lightweight builders. Each test creates only required data. Database reset between tests (transaction rollback or truncate).
 
 ## Coverage Targets
 
@@ -81,4 +96,5 @@ Use `factory_boy` or lightweight factory functions. Each test creates only requi
 | Services | 85% |
 | Repositories | 80% |
 | API routes | 75% |
+| Auth helpers | 90% |
 | Overall | 80% |

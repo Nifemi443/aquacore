@@ -148,14 +148,20 @@ backend/
 - Do not skip `farm_id` filtering in any query
 - Do not hard-delete operational fact records
 - Do not modify architecture without a new ADR
-- Do not regenerate Phase 1–12 documents — they are canonical in `docs/architecture/`
+- Do not regenerate Phase 1–18 documents — they are canonical in `docs/architecture/`
 - Password hashing is **Argon2id** (ADR-014 / Phase 10) — ignore historical bcrypt mentions in Phase 3
 - Routes stay thin — inject services only; no SQL or business rules in `app/api/` (Phase 11)
 - Async work via events + task façade — BackgroundTasks (MVP) → Celery+Redis (ADR-015 / Phase 12)
+- Tests follow Phase 13 pyramid — fake ports in unit/service; real Postgres for integration/API
+- Runtime via Docker Compose — api/worker/beat share one image; secrets never in git (Phase 14)
+- Delivery via GitHub Actions → GHCR → staging/prod; promote digests; manual prod gate (Phase 15)
+- Observability via JSON logs + Prometheus/Grafana/Loki/Tempo + OTel; audit stays in Postgres (Phase 16)
+- Scale via cache → horizontal API/workers → PgBouncer/replicas → partition; measure first (Phase 17)
+- Launch gated by production checklist, DR drills, and governance (Phase 18)
 
-## Implementation Order (Phase 13+)
+## Implementation Order (Phase 19+)
 
-1. Project scaffold (`backend/`, Docker, config, health checks)
+1. Monorepo scaffold (`backend/`, `docker/`, Makefile, `.env.example`) per [Phase 14](architecture/14-infrastructure-architecture.md)
 2. Database models + Alembic migrations ([Phase 5](architecture/05-orm-models.md), [Phase 6](architecture/06-migration-strategy.md))
 3. Pydantic schemas ([Phase 7](architecture/07-pydantic-schemas.md))
 4. Repository interfaces + SQLAlchemy implementations ([Phase 8](architecture/08-repository-layer.md))
@@ -163,8 +169,12 @@ backend/
 6. Services + EventBus ([Phase 9](architecture/09-service-layer.md))
 7. API routes + DI ([Phase 11](architecture/11-api-presentation-layer.md); contract [Phase 3](architecture/03-api-contract.md))
 8. Background tasks / Beat / queues ([Phase 12](architecture/12-background-processing.md))
-9. Tests per layer (include auth/RBAC, route overrides, eager Celery tasks)
-10. Harden: outbox, Redis rate limits, production Celery workers
+9. Test harness + suites per slice ([Phase 13](architecture/13-testing-architecture.md))
+10. Nginx, staging backups, image scanning, production secrets ([Phase 14](architecture/14-infrastructure-architecture.md))
+11. GitHub Actions CI/CD, GHCR, deploy/rollback scripts ([Phase 15](architecture/15-cicd-deployment-architecture.md))
+12. Logging/metrics/tracing instrumentation + Grafana/alerts ([Phase 16](architecture/16-observability-architecture.md))
+13. Caching, keyset pagination, pool budgets, load-test baselines ([Phase 17](architecture/17-performance-scalability-architecture.md))
+14. Runbooks, onboarding docs, DR drill, launch checklist ([Phase 18](architecture/18-production-readiness-governance.md))
 
 ## Key References
 
@@ -180,6 +190,13 @@ backend/
 - [Security Architecture](architecture/10-security-architecture.md)
 - [API Presentation Layer](architecture/11-api-presentation-layer.md)
 - [Background Processing](architecture/12-background-processing.md)
+- [Testing Architecture](architecture/13-testing-architecture.md)
+- [Infrastructure Architecture](architecture/14-infrastructure-architecture.md)
+- [CI/CD & Production Deployment](architecture/15-cicd-deployment-architecture.md)
+- [Monitoring & Observability](architecture/16-observability-architecture.md)
+- [Performance & Scalability](architecture/17-performance-scalability-architecture.md)
+- [Production Readiness & Governance](architecture/18-production-readiness-governance.md)
 - [ADR Index](adr/README.md)
 - [Security Index](security/README.md)
-- [Testing](testing/README.md)
+- [Testing Index](testing/README.md)
+- [Deployment Index](deployment/README.md)

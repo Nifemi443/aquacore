@@ -4,7 +4,7 @@ This file provides context for AI coding assistants working on the PondDesk Fish
 
 ## Project Summary
 
-PondDesk is a commercial fish farm management SaaS for freshwater/brackish aquaculture. The frontend MVP (Next.js) is built. The backend (FastAPI + PostgreSQL) has complete architecture documentation but is not yet implemented.
+PondDesk is a commercial fish farm management SaaS for freshwater/brackish aquaculture. The frontend MVP (Next.js) is built. Backend, delivery, observability, scalability, and production governance architectures (Phases 1–18) are complete; implementation has not started.
 
 **Full documentation:** [`docs/README.md`](docs/README.md)
 
@@ -24,6 +24,12 @@ PondDesk is a commercial fish farm management SaaS for freshwater/brackish aquac
 | 10 | [`docs/architecture/10-security-architecture.md`](docs/architecture/10-security-architecture.md) | AuthN, AuthZ, JWT, RBAC & security design |
 | 11 | [`docs/architecture/11-api-presentation-layer.md`](docs/architecture/11-api-presentation-layer.md) | FastAPI routes, DI & presentation layer |
 | 12 | [`docs/architecture/12-background-processing.md`](docs/architecture/12-background-processing.md) | Background tasks, events & automation |
+| 13 | [`docs/architecture/13-testing-architecture.md`](docs/architecture/13-testing-architecture.md) | Testing architecture & quality assurance |
+| 14 | [`docs/architecture/14-infrastructure-architecture.md`](docs/architecture/14-infrastructure-architecture.md) | Docker, Compose, Nginx & development environment |
+| 15 | [`docs/architecture/15-cicd-deployment-architecture.md`](docs/architecture/15-cicd-deployment-architecture.md) | CI/CD, GitHub Actions, production deploy & DR |
+| 16 | [`docs/architecture/16-observability-architecture.md`](docs/architecture/16-observability-architecture.md) | Monitoring, logging, metrics, tracing & alerting |
+| 17 | [`docs/architecture/17-performance-scalability-architecture.md`](docs/architecture/17-performance-scalability-architecture.md) | Performance optimization & scalability roadmap |
+| 18 | [`docs/architecture/18-production-readiness-governance.md`](docs/architecture/18-production-readiness-governance.md) | Production readiness, DR, governance & future evolution |
 
 **ADRs:** [`docs/adr/README.md`](docs/adr/README.md) (15 accepted decisions)
 
@@ -201,7 +207,8 @@ Override in tests: `app.dependency_overrides[get_db_session] = override_session`
 - Pyramid: 40% unit, 30% service, 20% integration, 10% API
 - Factories in `tests/factories/`
 - Test Postgres via Docker in CI
-- Coverage target: ≥80%
+- Coverage target: ≥80% (domain ≥95%, services ≥85%)
+- Full design: [`docs/architecture/13-testing-architecture.md`](docs/architecture/13-testing-architecture.md)
 
 ## Critical Business Rules
 
@@ -233,6 +240,12 @@ Water records UI hidden (redirects to dashboard); backend schema preserved.
 - **API endpoint details** → `docs/architecture/03-api-contract.md`
 - **Route / DI design** → `docs/architecture/11-api-presentation-layer.md`
 - **Background jobs / events** → `docs/architecture/12-background-processing.md`
+- **Testing strategy** → `docs/architecture/13-testing-architecture.md`
+- **Infrastructure / Docker** → `docs/architecture/14-infrastructure-architecture.md`
+- **CI/CD / production deploy** → `docs/architecture/15-cicd-deployment-architecture.md`
+- **Monitoring / observability** → `docs/architecture/16-observability-architecture.md`
+- **Performance / scalability** → `docs/architecture/17-performance-scalability-architecture.md`
+- **Production readiness / governance** → `docs/architecture/18-production-readiness-governance.md`
 - **Table/column specs** → `docs/architecture/02-database-architecture.md`
 - **Where does logic go?** → `docs/architecture/04-backend-architecture.md` §3
 - **Why was X decided?** → `docs/adr/`
